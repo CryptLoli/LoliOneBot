@@ -20,7 +20,7 @@ fun Route.applyLoliOneBotServer(
     system: LoliOneBotServer
 ) {
     route(path) {
-        accessToken?.also { accessToken ->
+        accessToken?.takeIf { it.isNotEmpty() }?.also { accessToken ->
             install(createRouteScopedPlugin("AuthPlugin") {
                 onCall { call ->
                     val auth = call.request.headers[HttpHeaders.Authorization] ?: run {
