@@ -11,4 +11,10 @@ class SuspendedRequests {
     fun create(echo: String = Uuid.random().toString()) = CompletableDeferred<ResponseBase>()
         .also { storage[echo] = it }
 
+    fun remove(echo: String) = storage.remove(echo)
+
+    fun complete(echo: String, data: ResponseBase) {
+        storage[echo]?.complete(data)
+    }
+
 }

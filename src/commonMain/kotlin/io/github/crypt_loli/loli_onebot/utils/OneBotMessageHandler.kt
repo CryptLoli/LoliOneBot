@@ -22,7 +22,7 @@ class OneBotMessageHandler(
             val base = jsonReceive.decodeFromJsonElement<ResponseBase>(element)
             val echo = base.echo ?: return
 
-            requests.storage[echo]?.complete(base)
+            requests.complete(echo, base)
         } else {
             // 下发事件
             val base = jsonReceive.decodeFromJsonElement<OneBotEvent>(element)

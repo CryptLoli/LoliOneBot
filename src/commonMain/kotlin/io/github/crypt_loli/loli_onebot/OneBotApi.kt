@@ -29,6 +29,7 @@ class OneBotApi(
         send.send(jsonSend.encodeToString(entity))
 
         return deferred.await()
+            .also { handler.requests.remove(echo) }
     }
 
 }
