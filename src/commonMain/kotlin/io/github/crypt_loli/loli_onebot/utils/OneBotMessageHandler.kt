@@ -5,7 +5,6 @@ import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotPostType
 import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotGroupMessageEvent
-import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotMessageEvent
 import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotPrivateMessageEvent
 import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeAddFriend
 import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeInviteGroup
@@ -36,11 +35,9 @@ class OneBotMessageHandler(
 
             when (base.postType) {
                 OneBotPostType.Message -> {
-                    val base2 = jsonReceive.decodeFromJsonElement<OneBotMessageEvent>(element)
-
-                    when (base2.messageType) {
-                        OneBotMessageEvent.MessageType.Private -> listener.onPrivateMessage(decode<OneBotPrivateMessageEvent>(api, element))
-                        OneBotMessageEvent.MessageType.Group -> listener.onGroupMessage(decode<OneBotGroupMessageEvent>(api, element))
+                    when (element["message_type"]?.jsonPrimitive?.content) {
+                        "private" -> listener.onPrivateMessage(decode<OneBotPrivateMessageEvent>(api, element))
+                        "group" -> listener.onGroupMessage(decode<OneBotGroupMessageEvent>(api, element))
                         else -> error("未知 message_type")
                     }
                 }

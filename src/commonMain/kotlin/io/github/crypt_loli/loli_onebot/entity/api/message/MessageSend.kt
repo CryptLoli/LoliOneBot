@@ -58,7 +58,7 @@ data class ApiMessagePrivateArray(
 }
 
 @Serializable
-data class ApiResponseMessage(
+data class ApiResponseMessageSend(
     @SerialName("message_id")
     val id: Long,
 )
