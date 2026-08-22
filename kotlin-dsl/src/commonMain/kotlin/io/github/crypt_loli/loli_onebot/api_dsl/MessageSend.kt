@@ -20,8 +20,8 @@ suspend fun OneBotApi.sendGroupMessage(groupId: Long, message: String) = sendWai
     entity = ApiMessageGroupRaw(ApiMessageGroupRaw.Params(groupId, message))
 ).decode<ApiResponseMessageSend>().id
 
-suspend fun OneBotApi.sendGroupMessage(userId: Long, data: List<ArrayMessage>) = sendWaiting(
-    entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(userId, data))
+suspend fun OneBotApi.sendGroupMessage(groupId: Long, data: List<ArrayMessage>) = sendWaiting(
+    entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(groupId, data))
 ).decode<ApiResponseMessageSend>().id
 
 suspend fun OneBotApi.sendPrivateMessageAsync(userId: Long, message: String) = send(
@@ -36,6 +36,6 @@ suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, message: String) = se
     entity = ApiMessageGroupRaw(ApiMessageGroupRaw.Params(groupId, message))
 )
 
-suspend fun OneBotApi.sendGroupMessageAsync(userId: Long, data: List<ArrayMessage>) = send(
-    entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(userId, data))
+suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, data: List<ArrayMessage>) = send(
+    entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(groupId, data))
 )
