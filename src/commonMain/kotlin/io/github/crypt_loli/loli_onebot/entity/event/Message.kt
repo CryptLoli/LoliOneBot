@@ -1,7 +1,9 @@
 package io.github.crypt_loli.loli_onebot.entity.event
 
 import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
+import io.github.crypt_loli.loli_onebot.entity.base.GroupRole
 import io.github.crypt_loli.loli_onebot.entity.base.MessageType
+import io.github.crypt_loli.loli_onebot.entity.base.UserSex
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -81,7 +83,7 @@ open class OneBotMessageEvent(
         @SerialName("user_id")
         val userId: Long = 0L,
         val nickname: String = "",
-        val sex: Sex = Sex.Unknown,
+        val sex: UserSex = UserSex.Unknown,
         val age: Int = 0,
 
         val groupId: Long? = null,
@@ -89,27 +91,9 @@ open class OneBotMessageEvent(
         val card: String? = null,
         val area: String? = null,
         val level: String? = null,
-        val role: Role? = null,
+        val role: GroupRole? = null,
         val title: String? = null
-    ) {
-        enum class Sex {
-            @SerialName("male")
-            Male,
-            @SerialName("female")
-            Female,
-            @SerialName("unknown")
-            Unknown
-        }
-
-        enum class Role {
-            @SerialName("owner")
-            Owner,
-            @SerialName("admin")
-            Admin,
-            @SerialName("member")
-            Member
-        }
-    }
+    )
 }
 
 @Serializable

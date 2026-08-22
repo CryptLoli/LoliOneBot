@@ -3,7 +3,10 @@ package io.github.crypt_loli.loli_onebot.entity.api
 import io.github.crypt_loli.loli_onebot.utils.jsonReceive
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.decodeFromJsonElement
 
 /**
@@ -20,7 +23,7 @@ data class ResponseBase(
     val code: Int,
     @SerialName("msg")
     val message: String = "",
-    val data: JsonObject = JsonObject(emptyMap()),
+    val data: JsonElement = JsonNull,
     val echo: String? = null
 ) {
     enum class Status {

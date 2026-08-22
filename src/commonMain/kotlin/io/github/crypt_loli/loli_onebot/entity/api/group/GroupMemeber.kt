@@ -10,9 +10,9 @@ data class ApiGroupList(
 ): ApiBase()
 
 @Serializable
-data class ApiGroupMemberList(
-    val action: String = "get_group_member_list",
-    val params: Params
+data class ApiGroupInfo(
+    val params: Params,
+    val action: String = "get_group_info"
 ): ApiBase() {
     @Serializable
     data class Params(
@@ -22,9 +22,35 @@ data class ApiGroupMemberList(
 }
 
 @Serializable
-data class ApiGroupMemberLeave(
-    val action: String = "set_group_leave",
-    val params: Params
+data class ApiGroupMemberList(
+    val params: Params,
+    val action: String = "get_group_member_list"
+): ApiBase() {
+    @Serializable
+    data class Params(
+        @SerialName("group_id")
+        val groupId: Long
+    )
+}
+
+@Serializable
+data class ApiGroupMemberInfo(
+    val params: Params,
+    val action: String = "get_group_member_info"
+): ApiBase() {
+    @Serializable
+    data class Params(
+        @SerialName("group_id")
+        val groupId: Long,
+        @SerialName("user_id")
+        val userId: Long
+    )
+}
+
+@Serializable
+data class ApiGroupLeave(
+    val params: Params,
+    val action: String = "set_group_leave"
 ): ApiBase() {
     @Serializable
     data class Params(
@@ -37,8 +63,8 @@ data class ApiGroupMemberLeave(
 
 @Serializable
 data class ApiGroupMemberSign(
-    val action: String = "set_group_sign",
     val params: Params,
+    val action: String = "set_group_sign"
 ): ApiBase() {
     @Serializable
     data class Params(
