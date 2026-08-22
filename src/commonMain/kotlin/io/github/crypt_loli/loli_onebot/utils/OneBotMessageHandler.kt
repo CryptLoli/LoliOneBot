@@ -17,6 +17,8 @@ class OneBotMessageHandler(
     suspend fun handleEvent(api: OneBotApi, text: String) {
         val element = jsonReceive.parseToJsonElement(text).jsonObject
 
+        listener.onRawMessage(element)
+
         if (element.containsKey("retcode")) {
             // API 响应
             val base = jsonReceive.decodeFromJsonElement<ResponseBase>(element)
