@@ -15,6 +15,8 @@ allprojects {
 
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+    apply(plugin = "com.vanniktech.maven.publish")
+    apply(plugin = "maven-publish")
 
     repositories {
         mavenCentral()
@@ -56,42 +58,44 @@ val privateKey = let {
     Pair(key, password)
 }
 
-mavenPublishing {
-    if (isRelease) publishToMavenCentral()
-    publishing {
-        repositories {
-            mavenLocal()
-        }
-    }
-    if (privateKey != null) signAllPublications()
-    coordinates("io.github.cryptloli", project.name, project.version.toString())
-    pom {
-        name.set("LoliOneBot")
-        description.set("A Kotlin multiplatform library for WPLauncher api.")
-        url.set("https://github.com/CryptLoli/LoliOneBot")
-        licenses {
-            license {
-                name.set("Zero-Clause BSD License")
-                url.set("https://opensource.org/license/0bsd")
+allprojects {
+    mavenPublishing {
+        if (isRelease) publishToMavenCentral()
+        publishing {
+            repositories {
+                mavenLocal()
             }
         }
-        developers {
-            developer {
-                id.set("nekocurit")
-                name.set("nekocurit")
-            }
-        }
-        scm {
-            connection.set("scm:git:https://github.com/CryptLoli/LoliOneBot.git")
-            developerConnection.set("scm:git:ssh://git@github.com/CryptLoli/LoliOneBot.git")
+        if (privateKey != null) signAllPublications()
+        coordinates("io.github.cryptloli", rootProject.name + if (project != rootProject) "-${project.name}" else "", project.version.toString())
+        pom {
+            name.set("LoliOneBot")
+            description.set("A Kotlin multiplatform library for WPLauncher api.")
             url.set("https://github.com/CryptLoli/LoliOneBot")
+            licenses {
+                license {
+                    name.set("Zero-Clause BSD License")
+                    url.set("https://opensource.org/license/0bsd")
+                }
+            }
+            developers {
+                developer {
+                    id.set("nekocurit")
+                    name.set("nekocurit")
+                }
+            }
+            scm {
+                connection.set("scm:git:https://github.com/CryptLoli/LoliOneBot.git")
+                developerConnection.set("scm:git:ssh://git@github.com/CryptLoli/LoliOneBot.git")
+                url.set("https://github.com/CryptLoli/LoliOneBot")
+            }
         }
     }
-}
 
-privateKey?.also { (key, password) ->
-    signing {
-        useInMemoryPgpKeys(key, password)
-        sign(publishing.publications)
+    privateKey?.also { (key, password) ->
+        signing {
+            useInMemoryPgpKeys(key, password)
+            sign(publishing.publications)
+        }
     }
 }
