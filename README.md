@@ -2,8 +2,7 @@
 
 LoliOneBot 是一个使用 Kotlin跨平台 实现的轻量 OneBot SDK
 
-项目处于早期阶段, 稳定性较低
-
+项目处于早期阶段, 可能会出现大幅度重构
 
 ## 说说优点?
 
@@ -25,13 +24,18 @@ repositories {
     mavenCentral()
 }
 
-// 还没发布第一个 release 暂不可用
 dependencies {
     // 把 ${version} 替换成最新版本
     implementation("io.github.cryptloli:loli-onebot:${version}")
-    // 同时还需要引入一个 ktor 客户端或服务端 引擎 
+    implementation("io.github.cryptloli:loli-onebot-forward-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-reverse-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-kotlin-dsl:${version}")
+    // 如果您使用的是正向WS 则需要确保项目里至少有一个 ktor client 引擎
     // https://ktor.io/docs/client-engines.html
     implementation("io.ktor:ktor-client-java:${ktorVersion}")
+    // 如果您使用的是反向WS/双向HTTP 则需要确保项目里至少有一个 ktor server 引擎
+    // https://ktor.io/docs/server-engines.html
+    implementation("io.ktor:ktor-server-cio:${ktorVersion}")
 }
 ```
 
@@ -45,7 +49,8 @@ dependencies {
 
 ## 一些常见问题
 
-TODO
+Q: 你们不会自动配置吗, 为什么必须手动添加一个 ktor 引擎?
+A: 为了为使用者让出更大的自由空间
 
 ## Issues
 
