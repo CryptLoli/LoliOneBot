@@ -1,7 +1,7 @@
 package io.github.crypt_loli.loli_onebot.entity.event.message
 
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
-import io.github.crypt_loli.loli_onebot.entity.array.OneBotArrayMessage
+import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,7 +15,7 @@ open class OneBotMessageEvent(
     val messageId: Long = 0L,
     @SerialName("user_id")
     val userId: Long = 0L,
-    val message: List<OneBotArrayMessage> = emptyList(),
+    val message: List<ArrayMessage> = emptyList(),
     @SerialName("raw_message")
     val rawMessage: String = "",
     val font: Int = 0,

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
 @Serializable
-data class OneBotArrayMessage(
+data class ArrayMessage(
     val type: SegmentType,
     val data: Data,
 ) {

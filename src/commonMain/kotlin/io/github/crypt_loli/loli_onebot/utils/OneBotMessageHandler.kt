@@ -1,6 +1,7 @@
 package io.github.crypt_loli.loli_onebot.utils
 
 import io.github.crypt_loli.loli_onebot.OneBotApi
+import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotPostType
 import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotGroupMessageEvent
@@ -23,13 +24,12 @@ class OneBotMessageHandler(
     suspend fun handleEvent(api: OneBotApi, text: String) {
         val element = jsonReceive.parseToJsonElement(text).jsonObject
 
-        if (element.containsKey("echo")) {
+        if (element.containsKey("retcode")) {
             // API 响应
-            val echo = element["echo"]?.jsonPrimitive?.content
-                ?.takeIf { it.isNotBlank() }
-                ?: return
+            val base = jsonReceive.decodeFromJsonElement<ResponseBase>(element)
+            val echo = base.echo ?: return
 
-            requests.storage[echo]?.complete(element)
+            requests.storage[echo]?.complete(base)
         } else {
             // 下发事件
             val base = jsonReceive.decodeFromJsonElement<OneBotEvent>(element)

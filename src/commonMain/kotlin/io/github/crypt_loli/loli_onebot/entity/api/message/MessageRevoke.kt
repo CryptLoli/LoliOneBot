@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiMessageRevoke(
-    val action: String = "delete_msg",
-    val params: Params
+    val params: Params,
+    val action: String = "delete_msg"
 ): ApiBase() {
     @Serializable
     data class Params(

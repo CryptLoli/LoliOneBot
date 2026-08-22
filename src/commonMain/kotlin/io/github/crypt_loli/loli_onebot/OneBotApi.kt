@@ -1,6 +1,7 @@
 package io.github.crypt_loli.loli_onebot
 
 import io.github.crypt_loli.loli_onebot.entity.api.ApiBase
+import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
 import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.jsonSend
@@ -19,7 +20,7 @@ class OneBotApi(
         send.send(jsonSend.encodeToString<T>(entity))
     }
 
-    suspend inline fun <reified T: ApiBase> sendWaiting(entity: T, echo: String = Uuid.random().toString()): JsonObject {
+    suspend inline fun <reified T: ApiBase> sendWaiting(entity: T, echo: String = Uuid.random().toString()): ResponseBase {
         var entity = jsonSend.encodeToJsonElement<T>(entity).jsonObject
         val deferred = handler.requests.create(echo)
 
