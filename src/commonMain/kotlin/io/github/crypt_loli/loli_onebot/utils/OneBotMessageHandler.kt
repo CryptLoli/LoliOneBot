@@ -2,13 +2,7 @@ package io.github.crypt_loli.loli_onebot.utils
 
 import io.github.crypt_loli.loli_onebot.OneBotApi
 import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
-import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
-import io.github.crypt_loli.loli_onebot.entity.event.OneBotPostType
-import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotGroupMessageEvent
-import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotPrivateMessageEvent
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeAddFriend
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeInviteGroup
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestJoinGroup
+import io.github.crypt_loli.loli_onebot.entity.event.*
 import io.github.crypt_loli.loli_onebot.sdk.OneBotListener
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -48,6 +42,11 @@ class OneBotMessageHandler(
                     when (element["sub_type"]?.jsonPrimitive?.content) {
                         "add" -> listener.onRequestJoinGroup(decode<OneBotRequestJoinGroup>(api, element))
                         "invite" -> listener.onRequestBeInviteGroup(decode<OneBotRequestBeInviteGroup>(api, element))
+                    }
+                }
+                OneBotPostType.Notice -> {
+                    when (element["sub_type"]?.jsonPrimitive?.content) {
+                        "poke" -> listener.onNoticePoke(decode<OneBotNoticePokeEvent>(api, element))
                     }
                 }
                 else -> {}

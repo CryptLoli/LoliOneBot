@@ -6,8 +6,8 @@ import io.github.crypt_loli.loli_onebot.api_dsl.sendGroupMessageAsync
 import io.github.crypt_loli.loli_onebot.api_dsl.sendPrivateMessage
 import io.github.crypt_loli.loli_onebot.api_dsl.sendPrivateMessageAsync
 import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
-import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotGroupMessageEvent
-import io.github.crypt_loli.loli_onebot.entity.event.message.OneBotPrivateMessageEvent
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotGroupMessageEvent
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotPrivateMessageEvent
 
 suspend fun OneBotPrivateMessageEvent.reply(message: String) = api.sendPrivateMessage(userId, message)
 suspend fun OneBotPrivateMessageEvent.reply(data: List<ArrayMessage>) = api.sendPrivateMessage(userId, data)

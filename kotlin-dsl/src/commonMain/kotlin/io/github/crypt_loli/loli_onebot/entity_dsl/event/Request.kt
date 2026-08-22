@@ -2,9 +2,9 @@ package io.github.crypt_loli.loli_onebot.entity_dsl.event
 
 import io.github.crypt_loli.loli_onebot.api_dsl.setFriendRequest
 import io.github.crypt_loli.loli_onebot.api_dsl.setGroupRequest
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeAddFriend
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestBeInviteGroup
-import io.github.crypt_loli.loli_onebot.entity.event.request.OneBotRequestJoinGroup
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotRequestBeAddFriend
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotRequestBeInviteGroup
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotRequestJoinGroup
 
 /**
  * 同意好友请求

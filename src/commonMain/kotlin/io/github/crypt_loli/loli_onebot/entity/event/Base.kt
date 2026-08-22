@@ -23,3 +23,17 @@ open class OneBotEvent(
     @Transient
     lateinit var api: OneBotApi
 }
+
+@Serializable
+enum class OneBotPostType {
+    @SerialName("notice")
+    Notice,
+    @SerialName("message")
+    Message,
+    @SerialName("request")
+    Request,
+    @SerialName("meta_event")
+    MetaEvent,
+
+    Invalid
+}

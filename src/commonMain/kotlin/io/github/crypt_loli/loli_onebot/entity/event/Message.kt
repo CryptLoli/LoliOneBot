@@ -1,6 +1,5 @@
-package io.github.crypt_loli.loli_onebot.entity.event.message
+package io.github.crypt_loli.loli_onebot.entity.event
 
-import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
 import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import kotlinx.serialization.SerialName
@@ -110,7 +109,17 @@ open class OneBotMessageEvent(
             @SerialName("member")
             Member
         }
-
     }
-
 }
+
+@Serializable
+data class OneBotGroupMessageEvent(
+    @SerialName("group_id")
+    val groupId: Long,
+): OneBotMessageEvent()
+
+@Serializable
+data class OneBotPrivateMessageEvent(
+    @SerialName("temp_source")
+    val tempSource: Int = 0,
+): OneBotMessageEvent()
