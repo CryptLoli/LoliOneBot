@@ -2,6 +2,8 @@ package io.github.crypt_loli.loli_onebot.entity.api.message
 
 import io.github.crypt_loli.loli_onebot.entity.api.ApiBase
 import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
+import io.github.crypt_loli.loli_onebot.entity.array.Message
+import io.github.crypt_loli.loli_onebot.entity.array.OneBotMessage
 import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import io.github.crypt_loli.loli_onebot.utils.serializer.InstantLongSSerializer
 import kotlinx.serialization.SerialName
@@ -26,13 +28,13 @@ data class ApiResponseMessageGet(
     val time: Instant,
     @SerialName("message_type")
     val messageType: MessageType,
-    val message: List<ArrayMessage> = emptyList(),
+    override val message: OneBotMessage = emptyList(),
     @SerialName("raw_message")
-    val rawMessage: String = "",
+    override val rawMessage: String = "",
     @SerialName("message_id")
     val messageId: Long,
     val sender: Sender,
-) {
+): Message {
     @Serializable
     data class Sender(
         @SerialName("user_id")

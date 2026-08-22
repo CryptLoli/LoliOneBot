@@ -1,6 +1,7 @@
 package io.github.crypt_loli.loli_onebot.entity.event
 
-import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
+import io.github.crypt_loli.loli_onebot.entity.array.Message
+import io.github.crypt_loli.loli_onebot.entity.array.OneBotMessage
 import io.github.crypt_loli.loli_onebot.entity.base.GroupRole
 import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import io.github.crypt_loli.loli_onebot.entity.base.UserSex
@@ -17,12 +18,12 @@ open class OneBotMessageEvent(
     val messageId: Long = 0L,
     @SerialName("user_id")
     val userId: Long = 0L,
-    val message: List<ArrayMessage> = emptyList(),
+    override val message: OneBotMessage = emptyList(),
     @SerialName("raw_message")
-    val rawMessage: String = "",
+    override val rawMessage: String = "",
     val font: Int = 0,
     val sender: Sender = Sender()
-): OneBotEvent() {
+): Message, OneBotEvent() {
 
     @Serializable
     enum class SubType {
