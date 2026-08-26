@@ -5,6 +5,7 @@ import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.github.crypt_loli.loli_onebot.server.LoliOneBotServer
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.launch
 
 class ReverseWSClient(
     val system: LoliOneBotServer,
@@ -13,8 +14,8 @@ class ReverseWSClient(
 
     val api = OneBotApi(this, system.handler)
 
-    suspend fun onTextReceived(text: String) {
-        system.handler.handleEvent(api, text)
+    fun onTextReceived(text: String) {
+        system.scope.launch { system.handler.handleRaw(api, text) }
     }
 
     override suspend fun send(text: String) {

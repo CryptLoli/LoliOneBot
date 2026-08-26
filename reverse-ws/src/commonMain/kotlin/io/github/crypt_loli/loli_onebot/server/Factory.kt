@@ -43,7 +43,7 @@ fun Route.applyLoliOneBotServer(
             runCatching {
                 for (frame in incoming) {
                     when (frame) {
-                        is Frame.Text -> launch { client.onTextReceived(frame.readText()) }
+                        is Frame.Text -> client.onTextReceived(frame.readText())
                         else -> {}
                     }
                 }
@@ -55,7 +55,7 @@ fun Route.applyLoliOneBotServer(
     }
 }
 
-fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServer.listenerWSServer(
+fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServer.createWSServer(
     factory: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "0.0.0.0",
     port: Int = 8080,
@@ -64,6 +64,14 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
 ) = embeddedServer(factory = factory, host = host, port = port) {
     install(WebSockets)
     routing {
-        applyLoliOneBotServer(path, accessToken, this@listenerWSServer)
+        applyLoliOneBotServer(path, accessToken, this@createWSServer)
     }
-}.start(wait = false)
+}
+
+suspend fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServer.createWSServerAndStart(
+    factory: ApplicationEngineFactory<TEngine, TConfiguration>,
+    host: String = "0.0.0.0",
+    port: Int = 8080,
+    path: String = "/",
+    accessToken: String? = null
+) = createWSServer(factory, host, port, path, accessToken).startSuspend(wait = false)
