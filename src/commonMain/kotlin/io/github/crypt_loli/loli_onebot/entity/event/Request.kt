@@ -12,7 +12,7 @@ open class OneBotRequestEvent(
  * 被添加好友事件
  *
  * @param userId 对方账号
- * @param comment 严重信息
+ * @param comment 验证信息
  */
 @Serializable
 data class OneBotRequestBeAddFriend(
@@ -37,6 +37,10 @@ data class OneBotRequestBeInviteGroup(
 
 /**
  * 用户入群申请 (Bot为管理员处理申请)
+ *
+ * @param groupId 群号
+ * @param userId 申请者账号
+ * @param comment 申请者填写的理由(如果有)
  */
 @Serializable
 data class OneBotRequestJoinGroup(
@@ -44,7 +48,5 @@ data class OneBotRequestJoinGroup(
     val userId: Long,
     @SerialName("group_id")
     val groupId: Long,
-    @SerialName("invitor_id")
-    val invitorId: Long?,
-    val comment: String
+    val comment: String = ""
 ): OneBotRequestEvent()
