@@ -18,6 +18,10 @@ class ReverseWSClient(
         system.scope.launch { system.handler.handleRaw(api, text) }
     }
 
+    fun onDisconnect() {
+        system.requests.cancelAll()
+    }
+
     override suspend fun send(text: String) {
         wrapped.send(text)
     }

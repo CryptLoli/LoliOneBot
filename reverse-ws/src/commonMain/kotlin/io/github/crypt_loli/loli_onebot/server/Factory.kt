@@ -49,6 +49,7 @@ fun Route.applyLoliOneBotServer(
                 }
             }
 
+            client.onDisconnect()
             system.clients -= client
             system.listener.onClientOffline(client)
         }
