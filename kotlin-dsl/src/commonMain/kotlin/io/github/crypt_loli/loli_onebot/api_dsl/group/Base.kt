@@ -1,4 +1,4 @@
-package io.github.crypt_loli.loli_onebot.api_dsl
+package io.github.crypt_loli.loli_onebot.api_dsl.group
 
 import io.github.crypt_loli.loli_onebot.OneBotApi
 import io.github.crypt_loli.loli_onebot.entity.api.group.ApiGroupInfo
