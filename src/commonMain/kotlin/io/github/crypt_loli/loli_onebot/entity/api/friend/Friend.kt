@@ -5,15 +5,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiFriendList(
-    val action: String = "get_friend_list"
-): ApiBase()
+class ApiFriendList: ApiBase("get_friend_list")
 
 @Serializable
 data class ApiFriendDelete(
-    val params: Params,
-    val action: String = "delete_friend"
-): ApiBase() {
+    val params: Params
+): ApiBase("delete_friend") {
     @Serializable
     data class Params(
         @SerialName("user_id")

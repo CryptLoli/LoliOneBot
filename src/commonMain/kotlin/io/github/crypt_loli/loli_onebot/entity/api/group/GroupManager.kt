@@ -6,9 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiGroupManagerKickMember(
-    val action: String = "set_group_kick",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_kick") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -22,9 +21,8 @@ data class ApiGroupManagerKickMember(
 
 @Serializable
 data class ApiGroupManagerMuteMember(
-    val action: String = "set_group_ban",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_ban") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -37,9 +35,8 @@ data class ApiGroupManagerMuteMember(
 
 @Serializable
 data class ApiGroupManagerWholeMute(
-    val action: String = "set_group_whole_ban",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_whole_ban") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -50,9 +47,8 @@ data class ApiGroupManagerWholeMute(
 
 @Serializable
 data class ApiGroupManagerSetMemberCard(
-    val action: String = "set_group_card",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_card") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -65,9 +61,8 @@ data class ApiGroupManagerSetMemberCard(
 
 @Serializable
 data class ApiGroupManagerSetName(
-    val action: String = "set_group_name",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_name") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -79,9 +74,8 @@ data class ApiGroupManagerSetName(
 
 @Serializable
 data class ApiGroupManagerSetAdmin(
-    val action: String = "set_group_admin",
     val params: Params
-): ApiBase() {
+): ApiBase("set_group_admin") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -94,9 +88,8 @@ data class ApiGroupManagerSetAdmin(
 
 @Serializable
 data class ApiGroupManagerSetAvatar(
-    val params: Params,
-    val action: String = "set_group_portrait"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_group_portrait") {
     @Serializable
     data class Params(
         @SerialName("group_id")

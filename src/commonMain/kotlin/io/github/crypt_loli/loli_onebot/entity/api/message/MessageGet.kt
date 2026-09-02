@@ -12,9 +12,8 @@ import kotlin.time.Instant
 
 @Serializable
 data class ApiMessageGet(
-    val params: Params,
-    val action: String = "get_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("get_msg") {
     @Serializable
     data class Params(
         @SerialName("message_id")

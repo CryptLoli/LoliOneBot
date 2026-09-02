@@ -9,9 +9,8 @@ import kotlin.time.Instant
 
 @Serializable
 data class ApiGroupEssenceMessageList(
-    val params: Params,
-    val action: String = "get_essence_msg_list"
-): ApiBase() {
+    val params: Params
+): ApiBase("get_essence_msg_list") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -23,9 +22,8 @@ data class ApiGroupEssenceMessageList(
 
 @Serializable
 data class ApiGroupEssenceMessageDelete(
-    val params: Params,
-    val action: String = "delete_essence_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("delete_essence_msg") {
     @Serializable
     data class Params(
         @SerialName("message_id")
@@ -35,9 +33,8 @@ data class ApiGroupEssenceMessageDelete(
 
 @Serializable
 data class ApiGroupEssenceMessageSet(
-    val params: Params,
-    val action: String = "set_essence_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_essence_msg") {
     @Serializable
     data class Params(
         @SerialName("message_id")

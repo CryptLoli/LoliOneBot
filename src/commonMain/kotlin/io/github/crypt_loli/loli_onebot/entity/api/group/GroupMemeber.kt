@@ -5,15 +5,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiGroupList(
-    val action: String = "get_group_list"
-): ApiBase()
+class ApiGroupList: ApiBase("get_group_list")
 
 @Serializable
 data class ApiGroupInfo(
-    val params: Params,
-    val action: String = "get_group_info"
-): ApiBase() {
+    val params: Params
+): ApiBase("get_group_info") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -23,9 +20,8 @@ data class ApiGroupInfo(
 
 @Serializable
 data class ApiGroupMemberList(
-    val params: Params,
-    val action: String = "get_group_member_list"
-): ApiBase() {
+    val params: Params
+): ApiBase("get_group_member_list") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -35,9 +31,8 @@ data class ApiGroupMemberList(
 
 @Serializable
 data class ApiGroupMemberInfo(
-    val params: Params,
-    val action: String = "get_group_member_info"
-): ApiBase() {
+    val params: Params
+): ApiBase("get_group_member_info") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -49,9 +44,8 @@ data class ApiGroupMemberInfo(
 
 @Serializable
 data class ApiGroupLeave(
-    val params: Params,
-    val action: String = "set_group_leave"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_group_leave") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -63,9 +57,8 @@ data class ApiGroupLeave(
 
 @Serializable
 data class ApiGroupMemberSign(
-    val params: Params,
-    val action: String = "set_group_sign"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_group_sign") {
     @Serializable
     data class Params(
         @SerialName("group_id")

@@ -5,9 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiRequestSetFriend(
-    val params: Params,
-    val action: String = "set_friend_add_request"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_friend_add_request") {
     @Serializable
     data class Params(
         val flag: String,
@@ -18,9 +17,8 @@ data class ApiRequestSetFriend(
 
 @Serializable
 data class ApiRequestSetGroup(
-    val params: Params,
-    val action: String = "set_group_add_request"
-): ApiBase() {
+    val params: Params
+): ApiBase("set_group_add_request") {
     @Serializable
     data class Params(
         val flag: String,

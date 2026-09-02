@@ -6,9 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiMessageMarkAsRead(
-    val params: Params,
-    val action: String = "mark_msg_as_read"
-): ApiBase() {
+    val params: Params
+): ApiBase("mark_msg_as_read") {
     @Serializable
     data class Params(
         @SerialName("message_id")

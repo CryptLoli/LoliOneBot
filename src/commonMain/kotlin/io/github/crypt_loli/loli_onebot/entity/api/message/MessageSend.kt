@@ -7,9 +7,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiMessageGroupRaw(
-    val params: Params,
-    val action: String = "send_group_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("send_group_msg") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -20,9 +19,8 @@ data class ApiMessageGroupRaw(
 
 @Serializable
 data class ApiMessageGroupArray(
-    val params: Params,
-    val action: String = "send_group_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("send_group_msg") {
     @Serializable
     data class Params(
         @SerialName("group_id")
@@ -33,9 +31,8 @@ data class ApiMessageGroupArray(
 
 @Serializable
 data class ApiMessagePrivateRaw(
-    val params: Params,
-    val action: String = "send_private_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("send_private_msg") {
     @Serializable
     data class Params(
         @SerialName("user_id")
@@ -46,9 +43,8 @@ data class ApiMessagePrivateRaw(
 
 @Serializable
 data class ApiMessagePrivateArray(
-    val params: Params,
-    val action: String = "send_private_msg"
-): ApiBase() {
+    val params: Params
+): ApiBase("send_private_msg") {
     @Serializable
     data class Params(
         @SerialName("user_id")
