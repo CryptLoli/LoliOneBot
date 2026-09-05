@@ -15,8 +15,8 @@ import kotlinx.coroutines.Dispatchers
  */
 class LoliOneBotServer(
     val listener: OneBotWSReverseListener,
-    val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
-    ) {
+    val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) {
     val clients = mutableSetOf<ReverseWSClient>()
     val requests = SuspendedRequests()
     val handler = OneBotMessageHandler(listener, requests)

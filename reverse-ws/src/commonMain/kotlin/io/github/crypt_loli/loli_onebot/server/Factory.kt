@@ -4,11 +4,11 @@ import io.github.crypt_loli.loli_onebot.server.module.ReverseWSClient
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
-import io.ktor.server.response.respond
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.isActive
 
 /**
  * 附加到外部 ktor-server 上
@@ -37,21 +37,24 @@ fun Route.applyLoliOneBotServer(
         }
         webSocket {
             val client = ReverseWSClient(system, this)
-            system.clients += client
             system.listener.onClientOnline(client)
 
-            runCatching {
-                for (frame in incoming) {
-                    when (frame) {
-                        is Frame.Text -> client.onTextReceived(frame.readText())
-                        else -> {}
+            if (isActive) {
+                system.clients += client
+
+                runCatching {
+                    for (frame in incoming) {
+                        when (frame) {
+                            is Frame.Text -> client.onTextReceived(frame.readText())
+                            else -> {}
+                        }
                     }
                 }
-            }
 
-            client.onDisconnect()
-            system.clients -= client
-            system.listener.onClientOffline(client)
+                client.onDisconnect()
+                system.clients -= client
+                system.listener.onClientOffline(client)
+            }
         }
     }
 }
