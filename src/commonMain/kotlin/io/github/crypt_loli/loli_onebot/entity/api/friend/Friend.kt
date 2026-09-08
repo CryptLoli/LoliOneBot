@@ -8,13 +8,26 @@ import kotlinx.serialization.Serializable
 class ApiFriendList: ApiBase("get_friend_list")
 
 @Serializable
+class ApiUnidirectionalFriendList: ApiBase("get_unidirectional_friend_list")
+
+@Serializable
 data class ApiFriendDelete(
     val params: Params
 ): ApiBase("delete_friend") {
     @Serializable
     data class Params(
         @SerialName("user_id")
-        val userId: Long,
-        val block: Boolean
+        val userId: Long
+    )
+}
+
+@Serializable
+data class ApiUnidirectionalFriendDelete(
+    val params: Params
+): ApiBase("delete_unidirectional_friend") {
+    @Serializable
+    data class Params(
+        @SerialName("user_id")
+        val userId: Long
     )
 }
