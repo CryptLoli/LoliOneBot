@@ -56,6 +56,10 @@ class OneBotMessageHandler(
                 }
             }
             OneBotPostType.Notice -> {
+                when (element["notice_type"]?.jsonPrimitive?.content) {
+                    "friend_recall" -> listener.onNoticePrivateRevoke(decode<OneBotNoticePrivateRevokeEvent>(api, element))
+                    "group_recall" -> listener.onNoticeGroupRevoke(decode<OneBotNoticeGroupRevokeEvent>(api, element))
+                }
                 when (element["sub_type"]?.jsonPrimitive?.content) {
                     "poke" -> listener.onNoticePoke(decode<OneBotNoticePokeEvent>(api, element))
                 }
