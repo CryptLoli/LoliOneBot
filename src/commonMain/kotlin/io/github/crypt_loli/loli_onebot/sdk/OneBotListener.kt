@@ -11,4 +11,6 @@ interface OneBotListener {
     suspend fun onRequestBeInviteGroup(event: OneBotRequestBeInviteGroup) { }
     suspend fun onRequestJoinGroup(event: OneBotRequestJoinGroup) { }
     suspend fun onNoticePoke(event: OneBotNoticePokeEvent) { }
+    suspend fun onNoticePrivateRevoke(event: OneBotNoticePrivateRevokeEvent) { }
+    suspend fun onNoticeGroupRevoke(event: OneBotNoticeGroupRevokeEvent) { }
 }
