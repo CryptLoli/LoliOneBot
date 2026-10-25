@@ -10,6 +10,7 @@ import kotlinx.serialization.json.encodeToJsonElement
 data class MentionEntity(
     val qq: Long
 ): ArrayEntity() {
+    override var type = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
         val factor = ArrayEntityFactor("at", serializer())

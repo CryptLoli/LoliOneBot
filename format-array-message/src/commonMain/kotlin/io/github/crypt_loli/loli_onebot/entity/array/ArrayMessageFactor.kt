@@ -30,6 +30,7 @@ class ArrayMessageFactor {
                     onFailure = { UnknownEntity(entity.type, entity.data) }
                 )
         }
+        .toMutableList()
 
     fun unformat(data: List<ArrayEntity>) = data
         .map { entity -> RawArrayMessage(entity.type, entity.encode()) }
