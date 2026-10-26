@@ -13,6 +13,6 @@ data class JsonEntity(
     override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
-        val factor = ArrayEntityFactor("json", serializer())
+        val factor = ArrayEntityFactor("json", serializer(), exactly = true)
     }
 }

@@ -27,7 +27,7 @@ class ArrayMessageFactor {
         types[type.type] = type
     }
 
-    fun format(data: List<RawArrayMessage>) = data
+    fun format(data: RawOneBotMessage, bypassValidCheck: Boolean = false) = data
         .map { entity ->
             val type = types[entity.type] ?: return@map UnknownEntity(entity.type, entity.data)
 
@@ -41,8 +41,25 @@ class ArrayMessageFactor {
                 )
         }
         .toMutableList()
+        .apply { require(bypassValidCheck || isValid(this)) { "Invalid OneBotMessage" } }
 
-    fun unformat(data: List<ArrayEntity>) = data
+    fun isValid(data: OneBotMessage) = data
+        .takeIf { it.size > 1 }
+        ?.let { data ->
+            val singleCheck = hashSetOf<ArrayEntityFactor<out ArrayEntity>>()
+
+            data.none { entity ->
+                val type = types[entity.baseType] ?: return@none false
+
+                if (type.exactly) return@none true
+                if (type.single && !singleCheck.add(type)) return@none true
+
+                return@none false
+            }
+        }
+        ?: true
+
+    fun unformat(data: OneBotMessage) = data
         .map { entity -> RawArrayMessage(entity.baseType, entity.encode()) }
 
 }
