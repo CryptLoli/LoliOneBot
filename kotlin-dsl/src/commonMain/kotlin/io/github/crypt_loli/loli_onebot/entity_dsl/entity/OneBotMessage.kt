@@ -19,13 +19,13 @@ var OneBotMessage.replyMessageId
 /**
  * 检查是否有提及某个人
  */
-fun OneBotMessage.hasMention(id: Long) = filterIsInstance<MentionEntity>().any { it.qq == id }
+fun OneBotMessage.hasMention(id: Long) = filterIsInstance<MentionEntity>().any { it.id == id }
 
 /**
  * 此消息提及了哪些人
  */
 val OneBotMessage.mentionUsers
-    get() = filterIsInstance<MentionEntity>().map { it.qq }
+    get() = filterIsInstance<MentionEntity>().map { it.id }
 
 fun buildOneBotMessage(replyId: Long? = null, block: OneBotMessage.() -> Unit) = mutableListOf<ArrayEntity>()
     .apply { replyMessageId = replyId }
