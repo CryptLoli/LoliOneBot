@@ -5,6 +5,7 @@ import io.github.crypt_loli.loli_onebot.entity.array.RawOneBotMessage
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotGroupMessageEvent
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotMessageEvent
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotPrivateMessageEvent
+import io.github.crypt_loli.loli_onebot.entity_dsl.entity.hasMention
 import io.github.crypt_loli.loli_onebot.entity_dsl.entity.replyMessageId
 
 suspend fun OneBotPrivateMessageEvent.reply(message: String) = api.sendPrivateMessage(userId, message)
@@ -27,3 +28,8 @@ suspend fun OneBotMessageEvent.getReplyMessage() = message.replyMessageId?.let {
  * 撤回消息 仅自身为管理员时可执行
  */
 suspend fun OneBotGroupMessageEvent.revoke() = api.revokeMessage(messageId)
+
+/**
+ * 是否回复或提及到自身
+ */
+suspend fun OneBotGroupMessageEvent.hasMentionOrReplySelf() = message.hasMention(selfId) || getReplyMessage()?.sender?.userId == selfId
