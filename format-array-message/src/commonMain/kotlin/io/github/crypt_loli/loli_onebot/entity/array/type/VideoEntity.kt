@@ -14,6 +14,6 @@ data class VideoEntity(
     override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
-        val factor = ArrayEntityFactor("video", serializer())
+        val factor = ArrayEntityFactor("video", serializer(), exactly = true)
     }
 }

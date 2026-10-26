@@ -14,6 +14,6 @@ data class RecordEntity(
     override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
-        val factor = ArrayEntityFactor("record", serializer())
+        val factor = ArrayEntityFactor("record", serializer(), exactly = true)
     }
 }

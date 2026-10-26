@@ -18,6 +18,6 @@ data class ShareEntity(
     override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
-        val factor = ArrayEntityFactor("share", serializer())
+        val factor = ArrayEntityFactor("share", serializer(), exactly = true)
     }
 }
