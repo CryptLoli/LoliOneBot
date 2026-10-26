@@ -1,7 +1,7 @@
 package io.github.crypt_loli.loli_onebot.entity.api.message
 
 import io.github.crypt_loli.loli_onebot.entity.api.ApiBase
-import io.github.crypt_loli.loli_onebot.entity.array.ArrayMessage
+import io.github.crypt_loli.loli_onebot.entity.array.RawOneBotMessage
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -25,7 +25,7 @@ data class ApiMessageGroupArray(
     data class Params(
         @SerialName("group_id")
         val groupId: Long,
-        val message: List<ArrayMessage>
+        val message: RawOneBotMessage
     )
 }
 
@@ -49,7 +49,7 @@ data class ApiMessagePrivateArray(
     data class Params(
         @SerialName("user_id")
         val userId: Long,
-        val message: List<ArrayMessage>
+        val message: RawOneBotMessage
     )
 }
 

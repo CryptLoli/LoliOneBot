@@ -3,35 +3,50 @@ package io.github.crypt_loli.loli_onebot.api_dsl
 import io.github.crypt_loli.loli_onebot.OneBotApi
 import io.github.crypt_loli.loli_onebot.entity.api.message.*
 import io.github.crypt_loli.loli_onebot.entity.array.OneBotMessage
+import io.github.crypt_loli.loli_onebot.entity.array.RawOneBotMessage
+import io.github.crypt_loli.loli_onebot.entity_dsl.entity.unformat
+import kotlin.jvm.JvmName
 
 suspend fun OneBotApi.sendPrivateMessage(userId: Long, message: String) = sendWaiting(
     entity = ApiMessagePrivateRaw(ApiMessagePrivateRaw.Params(userId, message))
 ).decode<ApiResponseMessageSend>().id
 
-suspend fun OneBotApi.sendPrivateMessage(userId: Long, data: OneBotMessage) = sendWaiting(
+@JvmName(name = "sendPrivateMessageUnformat")
+suspend fun OneBotApi.sendPrivateMessage(userId: Long, data: RawOneBotMessage) = sendWaiting(
     entity = ApiMessagePrivateArray(ApiMessagePrivateArray.Params(userId, data))
 ).decode<ApiResponseMessageSend>().id
+
+suspend fun OneBotApi.sendPrivateMessage(userId: Long, data: OneBotMessage) = sendPrivateMessage(userId, data.unformat)
 
 suspend fun OneBotApi.sendGroupMessage(groupId: Long, message: String) = sendWaiting(
     entity = ApiMessageGroupRaw(ApiMessageGroupRaw.Params(groupId, message))
 ).decode<ApiResponseMessageSend>().id
 
-suspend fun OneBotApi.sendGroupMessage(groupId: Long, data: OneBotMessage) = sendWaiting(
+suspend fun OneBotApi.sendGroupMessage(groupId: Long, data: RawOneBotMessage) = sendWaiting(
     entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(groupId, data))
 ).decode<ApiResponseMessageSend>().id
+
+@JvmName(name = "sendGroupMessageUnformat")
+suspend fun OneBotApi.sendGroupMessage(groupId: Long, data: OneBotMessage) = sendGroupMessage(groupId, data.unformat)
 
 suspend fun OneBotApi.sendPrivateMessageAsync(userId: Long, message: String) = send(
     entity = ApiMessagePrivateRaw(ApiMessagePrivateRaw.Params(userId, message))
 )
 
-suspend fun OneBotApi.sendPrivateMessageAsync(userId: Long, data: OneBotMessage) = send(
+suspend fun OneBotApi.sendPrivateMessageAsync(userId: Long, data: RawOneBotMessage) = send(
     entity = ApiMessagePrivateArray(ApiMessagePrivateArray.Params(userId, data))
 )
+
+@JvmName(name = "sendPrivateMessageUnformatAsync")
+suspend fun OneBotApi.sendPrivateMessageAsync(userId: Long, data: OneBotMessage) = sendPrivateMessageAsync(userId, data.unformat)
 
 suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, message: String) = send(
     entity = ApiMessageGroupRaw(ApiMessageGroupRaw.Params(groupId, message))
 )
 
-suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, data: OneBotMessage) = send(
+suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, data: RawOneBotMessage) = send(
     entity = ApiMessageGroupArray(ApiMessageGroupArray.Params(groupId, data))
 )
+
+@JvmName(name = "sendGroupMessageUnformatAsync")
+suspend fun OneBotApi.sendGroupMessageAsync(groupId: Long, data: OneBotMessage) = sendGroupMessageAsync(groupId, data.unformat)
