@@ -13,10 +13,12 @@ allprojects {
     group = rootProject.group
     version = rootProject.version
 
-    apply(plugin = "org.jetbrains.kotlin.multiplatform")
-    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
-    apply(plugin = "com.vanniktech.maven.publish")
-    apply(plugin = "maven-publish")
+    apply {
+        plugin("org.jetbrains.kotlin.multiplatform")
+        plugin("org.jetbrains.kotlin.plugin.serialization")
+        plugin("com.vanniktech.maven.publish")
+        plugin("maven-publish")
+    }
 
     repositories {
         mavenCentral()
