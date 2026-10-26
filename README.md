@@ -14,7 +14,7 @@ LoliOneBot 是一个使用 Kotlin跨平台 实现的轻量 OneBot SDK
 
 - 🟩 连接方式
     - 🟥 双向 HTTP
-    - 🟥 正向 Websocket
+    - 🟩 正向 Websocket
     - 🟩 反向 Websocket
 
 ## 作为库使用

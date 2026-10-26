@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 /**
- * 创建一个 OneBot 服务端实例
+ * 创建一个 OneBot 反向 WebSocket 服务端实例
  *
  * @param listener 事件下发类
  * @param scope 线程池
