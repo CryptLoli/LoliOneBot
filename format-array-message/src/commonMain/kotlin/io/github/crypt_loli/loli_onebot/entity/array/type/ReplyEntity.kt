@@ -10,7 +10,7 @@ import kotlinx.serialization.json.encodeToJsonElement
 data class ReplyEntity(
     val id: Long
 ): ArrayEntity() {
-    override var type = factor.type
+    override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
         val factor = ArrayEntityFactor("reply", serializer())

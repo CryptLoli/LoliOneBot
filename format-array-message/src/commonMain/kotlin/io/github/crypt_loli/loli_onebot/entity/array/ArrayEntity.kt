@@ -5,6 +5,6 @@ import kotlinx.serialization.json.JsonElement
 
 abstract class ArrayEntity {
     @Transient
-    open var type: String = ""
+    open var baseType: String = ""
     abstract fun encode(): JsonElement
 }

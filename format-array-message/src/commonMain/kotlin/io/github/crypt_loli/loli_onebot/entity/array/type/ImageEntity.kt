@@ -8,9 +8,10 @@ import kotlinx.serialization.json.encodeToJsonElement
 
 @Serializable
 data class ImageEntity(
-    val url: String
+    val file: String,
+    val url: String = ""
 ): ArrayEntity() {
-    override var type = factor.type
+    override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
         val factor = ArrayEntityFactor("image", serializer())
