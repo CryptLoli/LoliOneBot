@@ -10,3 +10,6 @@ val RawOneBotMessage.replyMessageId
     get() = format.replyMessageId
 
 fun RawOneBotMessage.hasMention(id: Long) = format.hasMention(id)
+
+val RawOneBotMessage.mentionUsers
+    get() = format.mentionUsers
