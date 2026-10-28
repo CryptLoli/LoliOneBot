@@ -27,8 +27,8 @@ repositories {
 dependencies {
     // 把 ${version} 替换成最新版本
     implementation("io.github.cryptloli:loli-onebot:${version}")
-    implementation("io.github.cryptloli:loli-onebot-forward-ws:${version}")
-    implementation("io.github.cryptloli:loli-onebot-reverse-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-network-forward-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-network-reverse-ws:${version}")
     implementation("io.github.cryptloli:loli-onebot-kotlin-dsl:${version}")
     // 如果您使用的是正向WS 则需要确保项目里至少有一个 ktor client 引擎
     // https://ktor.io/docs/client-engines.html
