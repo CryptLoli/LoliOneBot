@@ -1,4 +1,4 @@
-package io.github.crypt_loli.loli_onebot.server.reverse
+package io.github.crypt_loli.loli_onebot.server.reverse.module
 
 import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.github.crypt_loli.loli_onebot.server.OneBotServer

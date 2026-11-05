@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.server
 
-import io.github.crypt_loli.loli_onebot.server.module.ReverseWSClient
+import io.github.crypt_loli.loli_onebot.server.module.ReverseWSConnection
 import io.github.crypt_loli.loli_onebot.server.sdk.OneBotWSReverseListener
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.SuspendedRequests
@@ -13,11 +13,11 @@ import kotlinx.coroutines.Dispatchers
  * @param listener 事件下发类
  * @param scope 线程池
  */
-class LoliOneBotServer(
+class LoliOneBotClientReverseWS(
     val listener: OneBotWSReverseListener,
     val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
-    val clients = mutableSetOf<ReverseWSClient>()
+    val clients = mutableSetOf<ReverseWSConnection>()
     val requests = SuspendedRequests()
     val handler = OneBotMessageHandler(listener, requests)
 }

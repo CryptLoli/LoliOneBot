@@ -1,6 +1,7 @@
 package io.github.crypt_loli.loli_onebot.server.reverse
 
 import io.github.crypt_loli.loli_onebot.server.OneBotServer
+import io.github.crypt_loli.loli_onebot.server.reverse.module.ReverseWSConnection
 import io.github.crypt_loli.loli_onebot.utils.produceOne
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
  * @param url 应用端地址, 以 `ws://` 或 `wss://` 开头
  * @param accessToken 鉴权令牌
  */
-class LoliOneBotServerConnection(
+class LoliOneBotServerReverseWS(
     val server: OneBotServer,
     val url: String,
     val accessToken: String? = null,
@@ -47,7 +48,7 @@ class LoliOneBotServerConnection(
                 val connection = ReverseWSConnection(server, this)
                 send(connection)
                 server.onConnection(connection.api)
-                this@LoliOneBotServerConnection.connection = connection
+                this@LoliOneBotServerReverseWS.connection = connection
 
                 connection.job.join()
 

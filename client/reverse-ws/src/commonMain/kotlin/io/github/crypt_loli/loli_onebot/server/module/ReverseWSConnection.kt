@@ -2,13 +2,13 @@ package io.github.crypt_loli.loli_onebot.server.module
 
 import io.github.crypt_loli.loli_onebot.OneBotApi
 import io.github.crypt_loli.loli_onebot.module.WSSend
-import io.github.crypt_loli.loli_onebot.server.LoliOneBotServer
+import io.github.crypt_loli.loli_onebot.server.LoliOneBotClientReverseWS
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.launch
 
-class ReverseWSClient(
-    val system: LoliOneBotServer,
+class ReverseWSConnection(
+    val system: LoliOneBotClientReverseWS,
     val wrapped: DefaultWebSocketServerSession
 ): WSSend {
 
