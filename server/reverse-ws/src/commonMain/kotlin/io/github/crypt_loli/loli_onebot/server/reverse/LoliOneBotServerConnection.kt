@@ -45,13 +45,12 @@ class LoliOneBotServerConnection(
                 }
             ) {
                 val connection = ReverseWSConnection(server, this)
-
                 send(connection)
                 server.onConnection(connection.api)
-
                 this@LoliOneBotServerConnection.connection = connection
 
                 connection.job.join()
+
                 server.onDisconnect(connection.api, connection.disconnectReason)
             }
         }
