@@ -12,10 +12,15 @@ LoliOneBot 是一个使用 Kotlin跨平台 实现的轻量 OneBot SDK
 
 ## 功能列表
 
-- 🟩 连接方式
+- 🟩 应用层 (作为客户端连接OneBot实现)
     - 🟥 双向 HTTP
     - 🟩 正向 Websocket
     - 🟩 反向 Websocket
+  
+- 🟩 服务层 (作为OneBot实现被客户端连接)
+  - 🟥 双向 HTTP
+  - 🟥 正向 Websocket
+  - 🟩 反向 Websocket
 
 ## 作为库使用
 
@@ -26,14 +31,16 @@ repositories {
 
 dependencies {
     // 把 ${version} 替换成最新版本
-    implementation("io.github.cryptloli:loli-onebot:${version}")
-    implementation("io.github.cryptloli:loli-onebot-network-forward-ws:${version}")
-    implementation("io.github.cryptloli:loli-onebot-network-reverse-ws:${version}")
+    // 应用端
+    implementation("io.github.cryptloli:loli-onebot-client:${version}")
+    implementation("io.github.cryptloli:loli-onebot-client-network-forward-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-client-network-reverse-ws:${version}")
     implementation("io.github.cryptloli:loli-onebot-kotlin-dsl:${version}")
-    // 如果您使用的是正向WS 则需要确保项目里至少有一个 ktor client 引擎
+
+    // forward-ws, 需要一个 ktor client 引擎
     // https://ktor.io/docs/client-engines.html
     implementation("io.ktor:ktor-client-java:${ktorVersion}")
-    // 如果您使用的是反向WS/双向HTTP 则需要确保项目里至少有一个 ktor server 引擎
+    // reverse-ws, 需要一个 ktor server 引擎
     // https://ktor.io/docs/server-engines.html
     implementation("io.ktor:ktor-server-cio:${ktorVersion}")
 }
@@ -50,6 +57,7 @@ dependencies {
 ## 一些常见问题
 
 Q: 你们不会自动配置吗, 为什么必须手动添加一个 ktor 引擎?
+
 A: 为了为使用者让出更大的自由空间
 
 ## Issues

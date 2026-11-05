@@ -1,8 +1,8 @@
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(rootProject)
-            implementation(project(":format-array-message"))
+            api(project(":client"))
+            api(project(":format-array-message"))
         }
     }
 }
