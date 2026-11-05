@@ -1,8 +1,8 @@
 package io.github.crypt_loli.loli_onebot.utils
 
 import io.github.crypt_loli.loli_onebot.OneBotApi
-import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
 import io.github.crypt_loli.loli_onebot.entity.event.*
+import io.github.crypt_loli.loli_onebot.entity.ws.Response
 import io.github.crypt_loli.loli_onebot.sdk.OneBotListener
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -22,14 +22,14 @@ class OneBotMessageHandler(
 
         if (element.containsKey("retcode")) {
             // API 响应
-            handleApiResponse(jsonReceive.decodeFromJsonElement<ResponseBase>(element))
+            handleApiResponse(jsonReceive.decodeFromJsonElement<Response>(element))
         } else {
             // 下发事件
             handleEvent(api, element)
         }
     }
 
-    fun handleApiResponse(respond: ResponseBase) {
+    fun handleApiResponse(respond: Response) {
         val echo = respond.echo ?: return
 
         requests.complete(echo, respond)

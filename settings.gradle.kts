@@ -5,8 +5,13 @@ base("client") {
     network("reverse-ws")
 }
 
+base("server") {
+    network("reverse-ws")
+}
+
 include(":format-array-message")
 include(":kotlin-dsl")
+include(":base")
 
 fun base(name: String, block: BaseContext.() -> Unit) {
     include(":$name")

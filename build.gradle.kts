@@ -40,8 +40,6 @@ allprojects {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            api(libs.ktor.client.core)
-            api(libs.ktor.client.content.negotiation)
             api(libs.ktor.serialization.kotlinx.json)
         }
     }
@@ -72,7 +70,7 @@ allprojects {
         coordinates("io.github.cryptloli", rootProject.name + if (project != rootProject) "-${project.name}" else "", project.version.toString())
         pom {
             name.set("LoliOneBot")
-            description.set("A Kotlin multiplatform library for WPLauncher api.")
+            description.set("A Kotlin multiplatform library.")
             url.set("https://github.com/CryptLoli/LoliOneBot")
             licenses {
                 license {

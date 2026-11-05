@@ -34,6 +34,11 @@ class LoliOneBotClient(
     var client: ForwardWSClient? = null
         private set
 
+    /**
+     * 连接
+     *
+     * @param await 是否等待直到断开
+     */
     suspend fun connect(await: Boolean = false) {
         disconnect()
 

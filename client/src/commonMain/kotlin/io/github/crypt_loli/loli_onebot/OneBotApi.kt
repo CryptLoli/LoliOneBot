@@ -1,16 +1,12 @@
 package io.github.crypt_loli.loli_onebot
 
 import io.github.crypt_loli.loli_onebot.entity.api.ApiBase
-import io.github.crypt_loli.loli_onebot.entity.api.ResponseBase
+import io.github.crypt_loli.loli_onebot.entity.ws.Response
 import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.jsonSend
 import kotlinx.coroutines.withTimeout
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.encodeToJsonElement
-import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.uuid.Uuid
@@ -28,7 +24,7 @@ class OneBotApi(
         send.send(jsonSend.encodeToString(json))
     }
 
-    suspend inline fun <reified T: ApiBase> sendWaiting(entity: T, echo: String = Uuid.random().toString(), timeout: Duration = 1.minutes): ResponseBase {
+    suspend inline fun <reified T: ApiBase> sendWaiting(entity: T, echo: String = Uuid.random().toString(), timeout: Duration = 1.minutes): Response {
         val deferred = handler.requests.create(echo)
 
         send(entity, mapOf("echo" to JsonPrimitive(echo)))

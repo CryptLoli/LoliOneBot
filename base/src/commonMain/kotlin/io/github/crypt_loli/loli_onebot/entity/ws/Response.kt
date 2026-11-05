@@ -1,11 +1,16 @@
-package io.github.crypt_loli.loli_onebot.entity.api
+package io.github.crypt_loli.loli_onebot.entity.ws
 
 import io.github.crypt_loli.loli_onebot.utils.jsonReceive
+import io.github.crypt_loli.loli_onebot.utils.jsonSend
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.json.jsonObject
 
 /**
  * @param status 状态描述
@@ -15,10 +20,10 @@ import kotlinx.serialization.json.decodeFromJsonElement
  * @param echo 回声
  */
 @Serializable
-data class ResponseBase(
-    val status: Status,
+data class Response(
+    val status: Status = Status.Ok,
     @SerialName("retcode")
-    val code: Int,
+    val code: Int = StatusCode.Ok,
     @SerialName("msg")
     val message: String = "",
     val data: JsonElement = JsonNull,
@@ -38,4 +43,13 @@ data class ResponseBase(
 
         return jsonReceive.decodeFromJsonElement<T>(data)
     }
+
+    fun encodeToString(request: Request) = jsonSend
+        .encodeToJsonElement(this)
+        .jsonObject
+        .let { encode ->
+            request.echo
+                ?.let { encode + JsonObject(mapOf("echo" to JsonPrimitive(it))) }
+                ?: (encode - "echo")
+        }
 }
