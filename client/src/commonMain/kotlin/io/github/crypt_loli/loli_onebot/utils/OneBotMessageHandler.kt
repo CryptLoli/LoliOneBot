@@ -44,27 +44,27 @@ class OneBotMessageHandler(
         when (base.postType) {
             OneBotPostType.Message -> {
                 when (element["message_type"]?.jsonPrimitive?.content) {
-                    "private" -> listener.onPrivateMessage(decode<OneBotPrivateMessageEvent>(api, element))
-                    "group" -> listener.onGroupMessage(decode<OneBotGroupMessageEvent>(api, element))
+                    "private" -> listener.onAnyEvent(decode<OneBotPrivateMessageEvent>(api, element))
+                    "group" -> listener.onAnyEvent(decode<OneBotGroupMessageEvent>(api, element))
                     else -> error("未知 message_type")
                 }
             }
             OneBotPostType.Request -> {
                 when (element["request_type"]?.jsonPrimitive?.content) {
-                    "friend" -> listener.onRequestBeAddFriend(decode<OneBotRequestBeAddFriend>(api, element))
+                    "friend" -> listener.onAnyEvent(decode<OneBotRequestBeAddFriend>(api, element))
                 }
                 when (element["sub_type"]?.jsonPrimitive?.content) {
-                    "add" -> listener.onRequestJoinGroup(decode<OneBotRequestJoinGroup>(api, element))
-                    "invite" -> listener.onRequestBeInviteGroup(decode<OneBotRequestBeInviteGroup>(api, element))
+                    "add" -> listener.onAnyEvent(decode<OneBotRequestJoinGroup>(api, element))
+                    "invite" -> listener.onAnyEvent(decode<OneBotRequestBeInviteGroup>(api, element))
                 }
             }
             OneBotPostType.Notice -> {
                 when (element["notice_type"]?.jsonPrimitive?.content) {
-                    "friend_recall" -> listener.onNoticePrivateRevoke(decode<OneBotNoticePrivateRevokeEvent>(api, element))
-                    "group_recall" -> listener.onNoticeGroupRevoke(decode<OneBotNoticeGroupRevokeEvent>(api, element))
+                    "friend_recall" -> listener.onAnyEvent(decode<OneBotNoticePrivateRevokeEvent>(api, element))
+                    "group_recall" -> listener.onAnyEvent(decode<OneBotNoticeGroupRevokeEvent>(api, element))
                 }
                 when (element["sub_type"]?.jsonPrimitive?.content) {
-                    "poke" -> listener.onNoticePoke(decode<OneBotNoticePokeEvent>(api, element))
+                    "poke" -> listener.onAnyEvent(decode<OneBotNoticePokeEvent>(api, element))
                 }
             }
             else -> {}

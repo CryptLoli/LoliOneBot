@@ -6,12 +6,5 @@ import kotlinx.serialization.json.JsonObject
 interface OneBotListener {
     suspend fun onDecodeFail(raw: String, e: Throwable) { }
     suspend fun onRawMessage(raw: JsonObject) { }
-    suspend fun onPrivateMessage(event: OneBotPrivateMessageEvent) { }
-    suspend fun onGroupMessage(event: OneBotGroupMessageEvent) { }
-    suspend fun onRequestBeAddFriend(event: OneBotRequestBeAddFriend) { }
-    suspend fun onRequestBeInviteGroup(event: OneBotRequestBeInviteGroup) { }
-    suspend fun onRequestJoinGroup(event: OneBotRequestJoinGroup) { }
-    suspend fun onNoticePoke(event: OneBotNoticePokeEvent) { }
-    suspend fun onNoticePrivateRevoke(event: OneBotNoticePrivateRevokeEvent) { }
-    suspend fun onNoticeGroupRevoke(event: OneBotNoticeGroupRevokeEvent) { }
+    suspend fun onAnyEvent(event: OneBotEvent) { }
 }
