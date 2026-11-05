@@ -4,6 +4,7 @@ import io.github.crypt_loli.loli_onebot.client.module.ForwardWSClient
 import io.github.crypt_loli.loli_onebot.client.sdk.OneBotWSForwardListener
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.SuspendedRequests
+import io.github.crypt_loli.loli_onebot.utils.produceOne
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
@@ -32,7 +33,7 @@ class LoliOneBotClient(
     val requests = SuspendedRequests()
     val handler = OneBotMessageHandler(listener, requests)
 
-    var client: ForwardWSClient? = null
+    var connection: ForwardWSClient? = null
         private set
 
     /**
@@ -40,32 +41,33 @@ class LoliOneBotClient(
      *
      * @param await 是否等待直到断开
      */
-    suspend fun connect(await: Boolean = false) {
+    suspend fun connect(await: Boolean = false) = produceOne<ForwardWSClient> {
         disconnect()
 
-        httpClient.webSocket(
-            urlString = url,
-            request = {
-                accessToken?.takeIf { it.isNotEmpty() }?.also {
-                    bearerAuth(it)
-                }
-            }
-        ) {
-            client = ForwardWSClient(this@LoliOneBotClient, this)
-                .also { client ->
-                    scope.launch {
-                        listener.onConnect()
-                        client.job.join()
-                        listener.onDisconnect(client.disconnectReason)
+        scope.launch {
+            httpClient.webSocket(
+                urlString = url,
+                request = {
+                    accessToken?.takeIf { it.isNotEmpty() }?.also {
+                        bearerAuth(it)
                     }
-
-                    if (await) client.job.join()
                 }
+            ) {
+                val connection = ForwardWSClient(this@LoliOneBotClient, this)
+                send(connection)
+                listener.onConnect()
+                this@LoliOneBotClient.connection = connection
+
+                connection.job.join()
+
+                listener.onDisconnect(connection.disconnectReason)
+            }
         }
     }
+        .apply { if (await) job.join() }
 
     suspend fun disconnect() {
-        client?.disconnect()
-        client = null
+        connection?.disconnect()
+        connection = null
     }
 }
