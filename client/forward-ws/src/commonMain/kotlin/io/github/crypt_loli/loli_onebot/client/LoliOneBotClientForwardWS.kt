@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.client
 
-import io.github.crypt_loli.loli_onebot.client.module.ForwardWSClient
+import io.github.crypt_loli.loli_onebot.client.module.ForwardWSConnection
 import io.github.crypt_loli.loli_onebot.client.sdk.OneBotWSForwardListener
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.SuspendedRequests
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @param accessToken 鉴权令牌
  * @param scope 线程池
  */
-class LoliOneBotClient(
+class LoliOneBotClientForwardWS(
     val listener: OneBotWSForwardListener,
     val url: String = "ws://localhost:6700/",
     val accessToken: String? = null,
@@ -33,7 +33,7 @@ class LoliOneBotClient(
     val requests = SuspendedRequests()
     val handler = OneBotMessageHandler(listener, requests)
 
-    var connection: ForwardWSClient? = null
+    var connection: ForwardWSConnection? = null
         private set
 
     /**
@@ -41,7 +41,7 @@ class LoliOneBotClient(
      *
      * @param await 是否等待直到断开
      */
-    suspend fun connect(await: Boolean = false) = produceOne<ForwardWSClient> {
+    suspend fun connect(await: Boolean = false) = produceOne<ForwardWSConnection> {
         disconnect()
 
         scope.launch {
@@ -53,10 +53,10 @@ class LoliOneBotClient(
                     }
                 }
             ) {
-                val connection = ForwardWSClient(this@LoliOneBotClient, this)
+                val connection = ForwardWSConnection(this@LoliOneBotClientForwardWS, this)
                 send(connection)
                 listener.onConnect()
-                this@LoliOneBotClient.connection = connection
+                this@LoliOneBotClientForwardWS.connection = connection
 
                 connection.job.join()
 

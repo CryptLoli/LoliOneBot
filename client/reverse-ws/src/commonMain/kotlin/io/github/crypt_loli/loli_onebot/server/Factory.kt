@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.server
 
-import io.github.crypt_loli.loli_onebot.server.module.ReverseWSClient
+import io.github.crypt_loli.loli_onebot.server.module.ReverseWSConnection
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -17,7 +17,7 @@ import kotlinx.coroutines.isActive
 fun Route.applyLoliOneBotServer(
     path: String = "/",
     accessToken: String? = null,
-    system: LoliOneBotServer
+    system: LoliOneBotClientReverseWS
 ) {
     route(path) {
         accessToken?.takeIf { it.isNotEmpty() }?.also { accessToken ->
@@ -36,7 +36,7 @@ fun Route.applyLoliOneBotServer(
             })
         }
         webSocket {
-            val client = ReverseWSClient(system, this)
+            val client = ReverseWSConnection(system, this)
             system.listener.onClientOnline(client)
 
             if (isActive) {
@@ -59,7 +59,7 @@ fun Route.applyLoliOneBotServer(
     }
 }
 
-fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServer.createWSServer(
+fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotClientReverseWS.createWSServer(
     factory: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "0.0.0.0",
     port: Int = 8080,
@@ -72,7 +72,7 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
     }
 }
 
-suspend fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServer.createWSServerAndStart(
+suspend fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotClientReverseWS.createWSServerAndStart(
     factory: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "0.0.0.0",
     port: Int = 8080,
