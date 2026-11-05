@@ -37,14 +37,6 @@ allprojects {
     }
 }
 
-kotlin {
-    sourceSets {
-        commonMain.dependencies {
-            api(libs.ktor.serialization.kotlinx.json)
-        }
-    }
-}
-
 val isRelease = System.getenv("GITHUB_REF_TYPE") == "tag"
 val privateKey = let {
     val key = System.getenv("GPG_PRIVATE_KEY")
