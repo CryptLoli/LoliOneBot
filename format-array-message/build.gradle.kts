@@ -1,7 +1,7 @@
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(rootProject)
+            api(project(":client"))
         }
     }
 }

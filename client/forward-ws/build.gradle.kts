@@ -3,9 +3,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.ktor.client.core)
             api(libs.ktor.client.websockets)
-            api(libs.ktor.serialization.kotlinx.json)
-
-            implementation(rootProject)
+            api(project(":client"))
         }
     }
 }
