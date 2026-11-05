@@ -9,6 +9,7 @@ import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 /**
@@ -23,7 +24,7 @@ class LoliOneBotClient(
     val listener: OneBotWSForwardListener,
     val url: String = "ws://localhost:6700/",
     val accessToken: String? = null,
-    val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 ) {
     val httpClient = HttpClient {
         install(WebSockets)

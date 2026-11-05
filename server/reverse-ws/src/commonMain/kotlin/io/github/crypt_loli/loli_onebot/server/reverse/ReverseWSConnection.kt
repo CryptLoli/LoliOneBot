@@ -7,7 +7,7 @@ import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.launch
 
-class ReverseWSApp(
+class ReverseWSConnection(
     val server: OneBotServer,
     val wrapped: DefaultClientWebSocketSession
 ): WSSend {

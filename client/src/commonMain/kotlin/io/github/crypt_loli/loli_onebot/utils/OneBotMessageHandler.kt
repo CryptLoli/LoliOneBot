@@ -16,17 +16,20 @@ class OneBotMessageHandler(
 ) {
 
     suspend fun handleRaw(api: OneBotApi, text: String) {
-        val element = jsonReceive.parseToJsonElement(text).jsonObject
+        runCatching {
+            val element = jsonReceive.parseToJsonElement(text).jsonObject
 
-        listener.onRawMessage(element)
+            listener.onRawMessage(element)
 
-        if (element.containsKey("retcode")) {
-            // API 响应
-            handleApiResponse(jsonReceive.decodeFromJsonElement<Response>(element))
-        } else {
-            // 下发事件
-            handleEvent(api, element)
+            if (element.containsKey("retcode")) {
+                // API 响应
+                handleApiResponse(jsonReceive.decodeFromJsonElement<Response>(element))
+            } else {
+                // 下发事件
+                handleEvent(api, element)
+            }
         }
+            .onFailure { e -> listener.onDecodeFail(text, e) }
     }
 
     fun handleApiResponse(respond: Response) {

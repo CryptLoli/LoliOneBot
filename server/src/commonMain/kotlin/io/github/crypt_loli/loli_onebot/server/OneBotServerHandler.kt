@@ -6,8 +6,8 @@ import io.github.crypt_loli.loli_onebot.server.action.ActionResponseFailed
 import io.github.crypt_loli.loli_onebot.server.action.ActionResponseOverException
 import io.github.crypt_loli.loli_onebot.utils.jsonReceive
 
-class OneBotActionHandler(
-    var listener: OneBotActionListener
+class OneBotServerHandler(
+    var listener: OneBotServerListener
 ) {
 
     suspend fun handleRaw(api: OneBotConnection, raw: String) {
