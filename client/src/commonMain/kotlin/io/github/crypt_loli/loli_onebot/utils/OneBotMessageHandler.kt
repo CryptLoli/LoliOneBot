@@ -1,21 +1,20 @@
 package io.github.crypt_loli.loli_onebot.utils
 
-import io.github.crypt_loli.loli_onebot.OneBotApi
-import io.github.crypt_loli.loli_onebot.entity.event.*
+import io.github.crypt_loli.loli_onebot.OneBotClientApi
 import io.github.crypt_loli.loli_onebot.entity.ws.Response
 import io.github.crypt_loli.loli_onebot.sdk.OneBotListener
-import kotlinx.serialization.json.JsonElement
+import io.github.crypt_loli.loli_onebot.utils.event.EventRegistry
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 
 class OneBotMessageHandler(
     var listener: OneBotListener,
-    val requests: SuspendedRequests
+    val requests: SuspendedRequests,
+    val eventRegistry: EventRegistry = EventRegistry(),
 ) {
 
-    suspend fun handleRaw(api: OneBotApi, text: String) {
+    suspend fun handleRaw(api: OneBotClientApi, text: String) {
         runCatching {
             val element = jsonReceive.parseToJsonElement(text).jsonObject
 
@@ -38,40 +37,9 @@ class OneBotMessageHandler(
         requests.complete(echo, respond)
     }
 
-    suspend fun handleEvent(api: OneBotApi, element: JsonObject) {
-        val base = jsonReceive.decodeFromJsonElement<OneBotEvent>(element)
-
-        when (base.postType) {
-            OneBotPostType.Message -> {
-                when (element["message_type"]?.jsonPrimitive?.content) {
-                    "private" -> listener.onPrivateMessage(decode<OneBotPrivateMessageEvent>(api, element))
-                    "group" -> listener.onGroupMessage(decode<OneBotGroupMessageEvent>(api, element))
-                    else -> error("未知 message_type")
-                }
-            }
-            OneBotPostType.Request -> {
-                when (element["request_type"]?.jsonPrimitive?.content) {
-                    "friend" -> listener.onRequestBeAddFriend(decode<OneBotRequestBeAddFriend>(api, element))
-                }
-                when (element["sub_type"]?.jsonPrimitive?.content) {
-                    "add" -> listener.onRequestJoinGroup(decode<OneBotRequestJoinGroup>(api, element))
-                    "invite" -> listener.onRequestBeInviteGroup(decode<OneBotRequestBeInviteGroup>(api, element))
-                }
-            }
-            OneBotPostType.Notice -> {
-                when (element["notice_type"]?.jsonPrimitive?.content) {
-                    "friend_recall" -> listener.onNoticePrivateRevoke(decode<OneBotNoticePrivateRevokeEvent>(api, element))
-                    "group_recall" -> listener.onNoticeGroupRevoke(decode<OneBotNoticeGroupRevokeEvent>(api, element))
-                }
-                when (element["sub_type"]?.jsonPrimitive?.content) {
-                    "poke" -> listener.onNoticePoke(decode<OneBotNoticePokeEvent>(api, element))
-                }
-            }
-            else -> {}
-        }
+    suspend fun handleEvent(api: OneBotClientApi, element: JsonObject) {
+        val event = eventRegistry.parse(element, api) ?: return
+        listener.onAnyEvent(event)
     }
-
-    inline fun <reified T: OneBotEvent> decode(api: OneBotApi, element: JsonElement) = jsonReceive.decodeFromJsonElement<T>(element)
-        .apply { this.api = api }
 
 }

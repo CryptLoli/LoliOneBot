@@ -18,22 +18,8 @@ open class OneBotEvent(
     @SerialName("self_id")
     open val selfId: Long = 0L,
     @SerialName("post_type")
-    open val postType: OneBotPostType = OneBotPostType.Invalid
+    open val postType: String = ""
 ) {
     @Transient
     lateinit var api: OneBotApi
-}
-
-@Serializable
-enum class OneBotPostType {
-    @SerialName("notice")
-    Notice,
-    @SerialName("message")
-    Message,
-    @SerialName("request")
-    Request,
-    @SerialName("meta_event")
-    MetaEvent,
-
-    Invalid
 }

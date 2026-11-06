@@ -1,10 +1,11 @@
-package io.github.crypt_loli.loli_onebot.entity.event
+package io.github.crypt_loli.loli_onebot.events
 
+import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import io.github.crypt_loli.loli_onebot.entity.array.Message
 import io.github.crypt_loli.loli_onebot.entity.array.RawOneBotMessage
 import io.github.crypt_loli.loli_onebot.entity.base.GroupRole
-import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import io.github.crypt_loli.loli_onebot.entity.base.UserSex
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

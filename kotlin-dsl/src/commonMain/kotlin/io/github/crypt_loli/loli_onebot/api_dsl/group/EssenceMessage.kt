@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.api_dsl.group
 
-import io.github.crypt_loli.loli_onebot.OneBotApi
+import io.github.crypt_loli.loli_onebot.OneBotClientApi
 import io.github.crypt_loli.loli_onebot.entity.api.group.ApiGroupEssenceMessageDelete
 import io.github.crypt_loli.loli_onebot.entity.api.group.ApiGroupEssenceMessageList
 import io.github.crypt_loli.loli_onebot.entity.api.group.ApiGroupEssenceMessageSet
@@ -11,7 +11,7 @@ import io.github.crypt_loli.loli_onebot.entity.api.group.ApiResponseGroupEssence
  *
  * @param groupId 群聊Id
  */
-suspend fun OneBotApi.getGroupEssenceMessages(groupId: Long) = sendWaiting(
+suspend fun OneBotClientApi.getGroupEssenceMessages(groupId: Long) = sendWaiting(
     entity = ApiGroupEssenceMessageList(ApiGroupEssenceMessageList.Params(groupId))
 ).decode<List<ApiResponseGroupEssenceMessage>>()
 
@@ -20,7 +20,7 @@ suspend fun OneBotApi.getGroupEssenceMessages(groupId: Long) = sendWaiting(
  *
  * @param messageId 消息Id
  */
-suspend fun OneBotApi.setGroupEssenceMessage(messageId: Long) = sendWaiting(
+suspend fun OneBotClientApi.setGroupEssenceMessage(messageId: Long) = sendWaiting(
     entity = ApiGroupEssenceMessageSet(ApiGroupEssenceMessageSet.Params(messageId))
 )
 
@@ -29,6 +29,6 @@ suspend fun OneBotApi.setGroupEssenceMessage(messageId: Long) = sendWaiting(
  *
  * @param messageId 消息Id
  */
-suspend fun OneBotApi.deleteGroupEssenceMessage(messageId: Long) = sendWaiting(
+suspend fun OneBotClientApi.deleteGroupEssenceMessage(messageId: Long) = sendWaiting(
     entity = ApiGroupEssenceMessageDelete(ApiGroupEssenceMessageDelete.Params(messageId))
 )
