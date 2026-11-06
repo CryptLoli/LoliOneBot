@@ -5,12 +5,15 @@ import io.github.crypt_loli.loli_onebot.server.OneBotServer
 import io.github.crypt_loli.loli_onebot.server.OneBotConnection
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class ReverseWSConnection(
     val server: OneBotServer,
     val wrapped: DefaultClientWebSocketSession
 ): WSSend {
+    override val isConnected
+        get() = wrapped.isActive
     val api = OneBotConnection(server, this)
 
     val job = server.scope.launch {

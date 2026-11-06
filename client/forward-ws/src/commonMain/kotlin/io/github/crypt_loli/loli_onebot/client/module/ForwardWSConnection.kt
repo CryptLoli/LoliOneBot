@@ -5,12 +5,15 @@ import io.github.crypt_loli.loli_onebot.client.LoliOneBotClientForwardWS
 import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class ForwardWSConnection(
     val system: LoliOneBotClientForwardWS,
     val wrapped: DefaultClientWebSocketSession
 ): WSSend {
+    override val isConnected
+        get() = wrapped.isActive
 
     val api = OneBotClientApi(this, system.handler)
 
