@@ -4,6 +4,7 @@ import io.github.crypt_loli.loli_onebot.OneBotApi
 import io.github.crypt_loli.loli_onebot.utils.serializer.InstantLongSSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlin.time.Instant
 
 /**
@@ -19,5 +20,6 @@ open class OneBotEvent(
     @SerialName("post_type")
     open val postType: String = ""
 ) {
+    @Transient
     lateinit var api: OneBotApi
 }
