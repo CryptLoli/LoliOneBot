@@ -17,11 +17,13 @@ class LoliOneBotServerForwardWS(
     suspend fun onAnyWSConnected(call: PipelineCall) {
         run checkAccessToken@ {
             accessToken?.also { accessToken ->
-                val clientToken = call.request.headers[HttpHeaders.Authorization] ?: run {
+                val clientToken = call.request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
+                    ?: call.request.queryParameters["access_token"]
+                    ?: run {
                     call.respond(HttpStatusCode.Unauthorized)
                     return
                 }
-                if (clientToken != "Bearer $accessToken") { call.respond(HttpStatusCode.Forbidden) }
+                if (clientToken != accessToken) { call.respond(HttpStatusCode.Forbidden) }
             }
         }
     }
