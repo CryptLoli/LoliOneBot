@@ -24,7 +24,7 @@ fun Route.applyOneBotServer(
         })
         webSocket {
             val connection = ForwardWSConnection(system.server, this)
-            system.server.onConnection(connection.api) {
+            system.onConnection(connection) {
                 runCatching {
                     for (frame in incoming) {
                         when (frame) {
@@ -33,29 +33,27 @@ fun Route.applyOneBotServer(
                         }
                     }
                 }
-                system.server.onDisconnect(connection.api)
+                system.onDisconnect(connection)
             }
         }
     }
 }
 
-fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> OneBotServer.createForwardServer(
+fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServerForwardWS.createForwardServer(
     factory: ApplicationEngineFactory<TEngine, TConfiguration>,
-    system: LoliOneBotServerForwardWS,
     host: String = "0.0.0.0",
     port: Int = 6700,
     path: String = "/"
 ) = embeddedServer(factory = factory, host = host, port = port) {
     install(WebSockets)
     routing {
-        applyOneBotServer(system, path)
+        applyOneBotServer(this@createForwardServer, path)
     }
 }
 
-suspend fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> OneBotServer.createForwardServerAndStart(
+suspend fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configuration> LoliOneBotServerForwardWS.createForwardServerAndStart(
     factory: ApplicationEngineFactory<TEngine, TConfiguration>,
-    system: LoliOneBotServerForwardWS,
     host: String = "0.0.0.0",
     port: Int = 6700,
     path: String = "/"
-) = createForwardServer(factory, system, host, port, path).startSuspend(wait = false)
+) = createForwardServer(factory, host, port, path).startSuspend(wait = false)
