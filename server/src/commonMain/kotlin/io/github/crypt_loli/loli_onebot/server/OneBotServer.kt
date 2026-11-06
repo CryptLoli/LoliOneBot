@@ -18,9 +18,12 @@ class OneBotServer(
     val connections = mutableSetOf<OneBotConnection>()
     val handler = OneBotServerHandler(listener)
 
-    suspend fun onConnection(api: OneBotConnection) {
+    suspend fun onConnection(api: OneBotConnection, block: suspend (connection: OneBotConnection) -> Unit = {}) {
         listener.onAppOnline(api)
-        connections += api
+        if (api.owner.isConnected) {
+            connections += api
+            block(api)
+        }
     }
 
     suspend fun onDisconnect(api: OneBotConnection, reason: Throwable? = null) {

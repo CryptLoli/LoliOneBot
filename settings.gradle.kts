@@ -6,6 +6,7 @@ base("client") {
 }
 
 base("server") {
+    network("forward-ws")
     network("reverse-ws")
 }
 
