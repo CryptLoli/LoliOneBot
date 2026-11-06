@@ -1,6 +1,6 @@
 <div align="center"><h1>LoliOneBot</h1></div>
 
-LoliOneBot 是一个使用 Kotlin跨平台 实现的轻量 OneBot SDK
+LoliOneBot 是一个使用 KMP 实现的轻量 OneBot SDK
 
 项目处于早期阶段, 可能会出现大幅度重构
 
@@ -19,7 +19,7 @@ LoliOneBot 是一个使用 Kotlin跨平台 实现的轻量 OneBot SDK
   
 - 🟩 服务层 (作为OneBot实现被客户端连接)
   - 🟥 双向 HTTP
-  - 🟥 正向 Websocket
+  - 🟩 正向 Websocket
   - 🟩 反向 Websocket
 
 ## 作为库使用
@@ -31,11 +31,15 @@ repositories {
 
 dependencies {
     // 把 ${version} 替换成最新版本
-    // 应用端
+    // 应用端 (大部分接入 OneBot 生态的应用)
     implementation("io.github.cryptloli:loli-onebot-client:${version}")
     implementation("io.github.cryptloli:loli-onebot-client-network-forward-ws:${version}")
     implementation("io.github.cryptloli:loli-onebot-client-network-reverse-ws:${version}")
-    implementation("io.github.cryptloli:loli-onebot-kotlin-dsl:${version}")
+    implementation("io.github.cryptloli:loli-onebot-kotlin-dsl:${version}") 
+    // 实现端 (负责给 OneBot 生态应用提供服务的协议/hook适配端)
+    implementation("io.github.cryptloli:loli-onebot-server:${version}")
+    implementation("io.github.cryptloli:loli-onebot-server-network-forward-ws:${version}")
+    implementation("io.github.cryptloli:loli-onebot-server-network-reverse-ws:${version}")
 
     // forward-ws, 需要一个 ktor client 引擎
     // https://ktor.io/docs/client-engines.html
@@ -56,7 +60,7 @@ dependencies {
 
 ## 一些常见问题
 
-Q: 你们不会自动配置吗, 为什么必须手动添加一个 ktor 引擎?
+Q: 为什么必须手动添加一个 ktor 引擎?
 
 A: 为了为使用者让出更大的自由空间
 
