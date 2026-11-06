@@ -6,8 +6,9 @@ plugins {
     alias(libs.plugins.signing)
 }
 
-group = "io.github.cryptloli"
+group = project.property("group") as String
 version = project.property("version") as String
+val repo = project.property("repo") as String
 
 allprojects {
     group = rootProject.group
@@ -59,11 +60,11 @@ allprojects {
             }
         }
         if (privateKey != null) signAllPublications()
-        coordinates("io.github.cryptloli", rootProject.name + if (project != rootProject) "-${project.name}" else "", project.version.toString())
+        coordinates(rootProject.group.toString(), rootProject.name + if (project != rootProject) "-${project.name}" else "", project.version.toString())
         pom {
             name.set("LoliOneBot")
             description.set("A Kotlin multiplatform library.")
-            url.set("https://github.com/CryptLoli/LoliOneBot")
+            url.set("https://github.com/$repo")
             licenses {
                 license {
                     name.set("Zero-Clause BSD License")
@@ -77,9 +78,9 @@ allprojects {
                 }
             }
             scm {
-                connection.set("scm:git:https://github.com/CryptLoli/LoliOneBot.git")
-                developerConnection.set("scm:git:ssh://git@github.com/CryptLoli/LoliOneBot.git")
-                url.set("https://github.com/CryptLoli/LoliOneBot")
+                connection.set("scm:git:https://github.com/$repo.git")
+                developerConnection.set("scm:git:ssh://git@github.com/$repo.git")
+                url.set("https://github.com/$repo")
             }
         }
     }
