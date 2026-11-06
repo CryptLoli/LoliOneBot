@@ -1,7 +1,7 @@
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            api(project(":client"))
+            api(project(":events"))
         }
     }
 }

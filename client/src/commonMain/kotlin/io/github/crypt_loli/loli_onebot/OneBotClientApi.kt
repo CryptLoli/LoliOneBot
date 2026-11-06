@@ -11,10 +11,10 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.uuid.Uuid
 
-class OneBotApi(
+class OneBotClientApi(
     val send: WSSend,
     val handler: OneBotMessageHandler
-) {
+): OneBotApi {
 
     suspend inline fun <reified T: ApiBase> send(entity: T, extra: Map<String, JsonElement>? = null) {
         var json = jsonSend.encodeToJsonElement<T>(entity).jsonObject

@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.client.module
 
-import io.github.crypt_loli.loli_onebot.OneBotApi
+import io.github.crypt_loli.loli_onebot.OneBotClientApi
 import io.github.crypt_loli.loli_onebot.client.LoliOneBotClientForwardWS
 import io.github.crypt_loli.loli_onebot.module.WSSend
 import io.ktor.client.plugins.websocket.*
@@ -12,7 +12,7 @@ class ForwardWSConnection(
     val wrapped: DefaultClientWebSocketSession
 ): WSSend {
 
-    val api = OneBotApi(this, system.handler)
+    val api = OneBotClientApi(this, system.handler)
 
     val job = system.scope.launch {
         runCatching {

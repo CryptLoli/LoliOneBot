@@ -4,6 +4,7 @@ import io.github.crypt_loli.loli_onebot.server.module.ReverseWSConnection
 import io.github.crypt_loli.loli_onebot.server.sdk.OneBotWSReverseListener
 import io.github.crypt_loli.loli_onebot.utils.OneBotMessageHandler
 import io.github.crypt_loli.loli_onebot.utils.SuspendedRequests
+import io.github.crypt_loli.loli_onebot.utils.event.EventRegistry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 

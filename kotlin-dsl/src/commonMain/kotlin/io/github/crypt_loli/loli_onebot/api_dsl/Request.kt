@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.api_dsl
 
-import io.github.crypt_loli.loli_onebot.OneBotApi
+import io.github.crypt_loli.loli_onebot.OneBotClientApi
 import io.github.crypt_loli.loli_onebot.entity.api.request.ApiRequestSetFriend
 import io.github.crypt_loli.loli_onebot.entity.api.request.ApiRequestSetGroup
 
@@ -11,7 +11,7 @@ import io.github.crypt_loli.loli_onebot.entity.api.request.ApiRequestSetGroup
  * @param approve 是否同意
  * @param remark 好友备注
  */
-suspend fun OneBotApi.setFriendRequest(flag: String, approve: Boolean = true, remark: String = "") = send(
+suspend fun OneBotClientApi.setFriendRequest(flag: String, approve: Boolean = true, remark: String = "") = send(
     entity = ApiRequestSetFriend(ApiRequestSetFriend.Params(flag, approve, remark))
 )
 
@@ -23,6 +23,6 @@ suspend fun OneBotApi.setFriendRequest(flag: String, approve: Boolean = true, re
  * @param approve 是否同意
  * @param reason 拒绝理由
  */
-suspend fun OneBotApi.setGroupRequest(flag: String, type: String, approve: Boolean = true, reason: String? = null) = send(
+suspend fun OneBotClientApi.setGroupRequest(flag: String, type: String, approve: Boolean = true, reason: String? = null) = send(
     entity = ApiRequestSetGroup(ApiRequestSetGroup.Params(flag, type, approve, reason))
 )

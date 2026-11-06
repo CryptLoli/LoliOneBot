@@ -1,5 +1,6 @@
-package io.github.crypt_loli.loli_onebot.entity.event
+package io.github.crypt_loli.loli_onebot.events
 
+import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

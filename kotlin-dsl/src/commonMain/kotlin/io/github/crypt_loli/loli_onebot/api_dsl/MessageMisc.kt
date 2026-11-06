@@ -1,6 +1,6 @@
 package io.github.crypt_loli.loli_onebot.api_dsl
 
-import io.github.crypt_loli.loli_onebot.OneBotApi
+import io.github.crypt_loli.loli_onebot.OneBotClientApi
 import io.github.crypt_loli.loli_onebot.entity.api.message.ApiMessageGet
 import io.github.crypt_loli.loli_onebot.entity.api.message.ApiMessageMarkAsRead
 import io.github.crypt_loli.loli_onebot.entity.api.message.ApiMessageRevoke
@@ -11,7 +11,7 @@ import io.github.crypt_loli.loli_onebot.entity.api.message.ApiResponseMessageGet
  *
  * @param id 消息ID
  */
-suspend fun OneBotApi.revokeMessage(id: Long) = send(
+suspend fun OneBotClientApi.revokeMessage(id: Long) = send(
     entity = ApiMessageRevoke(ApiMessageRevoke.Params(id))
 )
 
@@ -20,7 +20,7 @@ suspend fun OneBotApi.revokeMessage(id: Long) = send(
  *
  * @param id 消息ID
  */
-suspend fun OneBotApi.markAsRead(id: Long) = send(
+suspend fun OneBotClientApi.markAsRead(id: Long) = send(
     entity = ApiMessageMarkAsRead(ApiMessageMarkAsRead.Params(id))
 )
 
@@ -29,6 +29,6 @@ suspend fun OneBotApi.markAsRead(id: Long) = send(
  *
  * @param id 消息ID
  */
-suspend fun OneBotApi.getMessage(id: Long) = sendWaiting(
+suspend fun OneBotClientApi.getMessage(id: Long) = sendWaiting(
     entity = ApiMessageGet(ApiMessageGet.Params(id))
 ).decode<ApiResponseMessageGet>()

@@ -9,6 +9,7 @@ base("server") {
     network("reverse-ws")
 }
 
+include(":events")
 include(":format-array-message")
 include(":kotlin-dsl")
 include(":base")
