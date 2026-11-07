@@ -27,7 +27,7 @@ class OneBotServer(
     val handler = OneBotServerHandler(listener)
 
     suspend fun onConnection(api: OneBotConnection, block: suspend (connection: OneBotConnection) -> Unit = {}) {
-        listener.onAppOnline(api)
+        listener.onClientOnline(api)
         if (api.owner.isConnected) {
             connections += api
             block(api)
@@ -36,7 +36,7 @@ class OneBotServer(
 
     suspend fun onDisconnect(api: OneBotConnection, reason: Throwable? = null) {
         connections -= api
-        listener.onAppOffline(api, reason)
+        listener.onClientOffline(api, reason)
     }
 
     /**

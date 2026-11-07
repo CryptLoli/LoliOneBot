@@ -9,7 +9,7 @@ import io.ktor.server.response.*
 
 /**
  * @param server 实现端实例
- * @param accessToken 鉴权令牌, 可以动态更换. 更换后立刻对新客户端生肖, 不会踢出已经完成鉴权的客户端
+ * @param accessToken 鉴权令牌, 可以动态更换. 更换后立刻对新客户端生效, 不会踢出已经完成鉴权的客户端
  */
 class LoliOneBotServerForwardWS(
     val server: OneBotServer,
