@@ -4,8 +4,7 @@ import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-abstract class OneBotNoticeEvent: OneBotEvent()
+open class OneBotNoticeEvent: OneBotEvent()
 
 /**
  * 戳一戳事件
@@ -29,22 +28,22 @@ data class OneBotNoticePokeEvent(
 
 /**
  * 消息撤回事件
- *
- * @param messageId 消息唯一标识
  */
 @Serializable
-open class OneBotNoticeRevokeEvent(
-    @SerialName("message_id")
-    val messageId: Long = 0L
-): OneBotNoticeEvent()
+abstract class OneBotNoticeRevokeEvent: OneBotNoticeEvent() {
+    abstract val messageId: Long
+}
 
 /**
  * 私聊消息撤回事件
  *
+ * @param messageId 消息唯一标识
  * @param senderId 消息发送者
  */
 @Serializable
 data class OneBotNoticePrivateRevokeEvent(
+    @SerialName("message_id")
+    override val messageId: Long = 0L,
     @SerialName("user_id")
     val senderId: Long
 ): OneBotNoticeRevokeEvent()
@@ -52,12 +51,15 @@ data class OneBotNoticePrivateRevokeEvent(
 /**
  * 群消息撤回事件
  *
+ * @param messageId 消息唯一标识
  * @param groupId 群组
  * @param senderId 消息发送者
  * @param operatorId 消息撤回者 (可能是发送者也可能是群管理员)
  */
 @Serializable
 data class OneBotNoticeGroupRevokeEvent(
+    @SerialName("message_id")
+    override val messageId: Long = 0L,
     @SerialName("group_id")
     val groupId: Long,
     @SerialName("user_id")
