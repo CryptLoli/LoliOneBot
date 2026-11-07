@@ -5,6 +5,7 @@ import io.github.crypt_loli.loli_onebot.entity.ws.StatusCode
 import io.github.crypt_loli.loli_onebot.server.action.ActionResponseFailed
 import io.github.crypt_loli.loli_onebot.server.action.ActionResponseOverException
 import io.github.crypt_loli.loli_onebot.utils.jsonReceive
+import io.github.crypt_loli.loli_onebot.utils.safeRunCatching
 
 class OneBotServerHandler(
     var listener: OneBotServerListener
@@ -13,7 +14,7 @@ class OneBotServerHandler(
     suspend fun handleRaw(api: OneBotConnection, raw: String) {
         val request = jsonReceive.decodeFromString<Request>(raw)
 
-        runCatching {
+        safeRunCatching {
             listener.onAction(api, request.action, request.params)
         }
             .fold(
