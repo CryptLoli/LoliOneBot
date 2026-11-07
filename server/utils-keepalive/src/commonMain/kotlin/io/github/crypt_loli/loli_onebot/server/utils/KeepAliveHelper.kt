@@ -16,13 +16,13 @@ class KeepAliveHelper(
         private set
     val isRunning
         get() = job?.isActive == true
-    var interval = interval
+    var interval = Duration.ZERO
         set(value) {
             job?.cancel()
             job = null
 
             if (value.isPositive()) {
-                server.scope.launch {
+                job = server.scope.launch {
                     while (isActive) {
                         delay(interval)
 
@@ -38,4 +38,8 @@ class KeepAliveHelper(
 
             field = value
         }
+
+    init {
+        this.interval = interval
+    }
 }
