@@ -25,6 +25,7 @@ class EventRegistry {
         register(OneBotNoticePrivateRevokeEvent.serializer(), "post_type" to "notice", "notice_type" to "friend_recall")
         register(OneBotNoticeGroupRevokeEvent.serializer(), "post_type" to "notice", "notice_type" to "group_recall")
         register(OneBotNoticePokeEvent.serializer(), "post_type" to "notice", "sub_type" to "poke")
+        register(OneBotHeartbeatEvent.serializer(), "post_type" to "meta_event", "meta_event_type" to "heartbeat")
     }
 
     inline fun <reified T: OneBotEvent> register(serializer: KSerializer<T>, vararg keys: Pair<String, String>) {

@@ -8,6 +8,8 @@ base("client") {
 base("server") {
     network("forward-ws")
     network("reverse-ws")
+
+    utils("keepalive")
 }
 
 include(":events")
@@ -24,5 +26,9 @@ class BaseContext(val base: String) {
     fun network(name: String) {
         include(":$base-network-$name")
         project(":$base-network-$name").projectDir = file("$base/$name")
+    }
+    fun utils(name: String) {
+        include(":$base-utils-$name")
+        project(":$base-utils-$name").projectDir = file("$base/utils-$name")
     }
 }
