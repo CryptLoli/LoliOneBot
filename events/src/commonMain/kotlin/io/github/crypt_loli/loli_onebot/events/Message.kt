@@ -1,6 +1,5 @@
 package io.github.crypt_loli.loli_onebot.events
 
-import io.github.crypt_loli.loli_onebot.entity.base.MessageType
 import io.github.crypt_loli.loli_onebot.entity.array.Message
 import io.github.crypt_loli.loli_onebot.entity.array.RawOneBotMessage
 import io.github.crypt_loli.loli_onebot.entity.base.GroupRole
@@ -10,21 +9,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-open class OneBotMessageEvent(
-    @SerialName("message_type")
-    val messageType: MessageType = MessageType.Group,
-    @SerialName("sub_type")
-    val subType: SubType = SubType.Invalid,
-    @SerialName("message_id")
-    val messageId: Long = 0L,
-    @SerialName("user_id")
-    val userId: Long = 0L,
-    override val message: RawOneBotMessage = emptyList(),
-    @SerialName("raw_message")
-    override val rawMessage: String = "",
-    val font: Int = 0,
-    val sender: Sender = Sender()
-): Message, OneBotEvent() {
+abstract class OneBotMessageEvent: Message, OneBotEvent() {
+    abstract val subType: SubType
+    abstract val messageId: Long
+    abstract val userId: Long
+    abstract override val message: RawOneBotMessage
+    abstract override val rawMessage: String
+    abstract val font: Int
+    abstract val sender: Sender
 
     @Serializable
     enum class SubType {
@@ -100,12 +92,34 @@ open class OneBotMessageEvent(
 
 @Serializable
 data class OneBotGroupMessageEvent(
+    @SerialName("sub_type")
+    override val subType: SubType = SubType.Group,
+    @SerialName("message_id")
+    override val messageId: Long = 0L,
+    @SerialName("user_id")
+    override val userId: Long = 0L,
+    override val message: RawOneBotMessage = emptyList(),
+    @SerialName("raw_message")
+    override val rawMessage: String = "",
+    override val font: Int = 0,
+    override val sender: Sender = Sender(),
     @SerialName("group_id")
     val groupId: Long,
 ): OneBotMessageEvent()
 
 @Serializable
 data class OneBotPrivateMessageEvent(
+    @SerialName("sub_type")
+    override val subType: SubType = SubType.Friend,
+    @SerialName("message_id")
+    override val messageId: Long = 0L,
+    @SerialName("user_id")
+    override val userId: Long = 0L,
+    override val message: RawOneBotMessage = emptyList(),
+    @SerialName("raw_message")
+    override val rawMessage: String = "",
+    override val font: Int = 0,
+    override val sender: Sender = Sender(),
     @SerialName("temp_source")
     val tempSource: Int = 0,
 ): OneBotMessageEvent()
