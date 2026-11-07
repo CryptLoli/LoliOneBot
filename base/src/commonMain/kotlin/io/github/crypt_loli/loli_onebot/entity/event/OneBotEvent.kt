@@ -14,11 +14,9 @@ import kotlin.time.Instant
 @Serializable
 open class OneBotEvent(
     @Serializable(with = InstantLongSSerializer::class)
-    open val time: Instant = Instant.DISTANT_PAST,
+    open var time: Instant = Instant.DISTANT_PAST,
     @SerialName("self_id")
-    open val selfId: Long = 0L,
-    @SerialName("post_type")
-    open val postType: String = ""
+    open var selfId: Long = 0L
 ) {
     @Transient
     lateinit var api: OneBotApi

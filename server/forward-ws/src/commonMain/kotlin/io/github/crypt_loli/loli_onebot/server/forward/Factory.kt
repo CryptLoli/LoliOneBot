@@ -1,6 +1,5 @@
 package io.github.crypt_loli.loli_onebot.server.forward
 
-import io.github.crypt_loli.loli_onebot.server.OneBotServer
 import io.github.crypt_loli.loli_onebot.server.forward.module.ForwardWSConnection
 import io.ktor.server.application.*
 import io.ktor.server.engine.*

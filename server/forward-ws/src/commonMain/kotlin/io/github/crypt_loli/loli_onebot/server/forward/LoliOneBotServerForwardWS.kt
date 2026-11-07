@@ -24,9 +24,9 @@ class LoliOneBotServerForwardWS(
                 val clientToken = call.request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
                     ?: call.request.queryParameters["access_token"]
                     ?: run {
-                    call.respond(HttpStatusCode.Unauthorized)
-                    return
-                }
+                        call.respond(HttpStatusCode.Unauthorized)
+                        return
+                    }
                 if (clientToken != accessToken) { call.respond(HttpStatusCode.Forbidden) }
             }
         }
