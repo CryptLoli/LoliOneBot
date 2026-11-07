@@ -5,6 +5,7 @@ import io.github.crypt_loli.loli_onebot.entity.array.ArrayEntityFactor
 import io.github.crypt_loli.loli_onebot.utils.jsonSend
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.json.encodeToJsonElement
 
 @Serializable
@@ -15,6 +16,7 @@ data class ShareEntity(
     @SerialName("image")
     val imageUrl: String = "",
 ): ArrayEntity() {
+    @Transient
     override var baseType = factor.type
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
