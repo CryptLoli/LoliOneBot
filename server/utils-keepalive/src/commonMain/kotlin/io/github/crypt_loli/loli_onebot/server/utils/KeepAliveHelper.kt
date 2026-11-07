@@ -10,7 +10,7 @@ import kotlin.time.Duration
 
 class KeepAliveHelper(
     val server: OneBotServer,
-    interval: Duration
+    interval: Duration = Duration.ZERO
 ) {
     var job: Job? = null
         private set
