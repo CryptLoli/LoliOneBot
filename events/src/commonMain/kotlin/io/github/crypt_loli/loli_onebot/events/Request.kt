@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-open class OneBotRequestEvent(
-    val flag: String = ""
-): OneBotEvent()
+abstract class OneBotRequestEvent: OneBotEvent() {
+    abstract val flag: String
+}
 
 /**
  * 被添加好友事件
@@ -17,6 +17,7 @@ open class OneBotRequestEvent(
  */
 @Serializable
 data class OneBotRequestBeAddFriend(
+    override val flag: String,
     @SerialName("user_id")
     val userId: Long,
     val comment: String
@@ -30,6 +31,7 @@ data class OneBotRequestBeAddFriend(
  */
 @Serializable
 data class OneBotRequestBeInviteGroup(
+    override val flag: String,
     @SerialName("group_id")
     val groupId: Long,
     @SerialName("user_id")
@@ -45,6 +47,7 @@ data class OneBotRequestBeInviteGroup(
  */
 @Serializable
 data class OneBotRequestJoinGroup(
+    override val flag: String,
     @SerialName("user_id")
     val userId: Long,
     @SerialName("group_id")
