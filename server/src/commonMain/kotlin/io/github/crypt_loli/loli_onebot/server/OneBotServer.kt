@@ -4,6 +4,7 @@ import io.github.crypt_loli.loli_onebot.entity.Account
 import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import io.github.crypt_loli.loli_onebot.utils.event.EventRegistry
 import io.github.crypt_loli.loli_onebot.utils.jsonSend
+import io.github.crypt_loli.loli_onebot.utils.safeRunCatching
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -46,7 +47,7 @@ class OneBotServer(
      */
     suspend fun broadcast(raw: String) {
         connections.toList().forEach { app ->
-            runCatching { app.push(raw) }
+            safeRunCatching { app.push(raw) }
         }
     }
 
