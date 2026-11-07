@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Account(
-    val id: Long = 0
+    val id: Long = 0,
+    var online: Boolean = false
 )
