@@ -1,6 +1,7 @@
 package io.github.crypt_loli.loli_onebot.entity.array.type
 
 import io.github.crypt_loli.loli_onebot.entity.array.ArrayEntity
+import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonElement
 
 data class UnknownEntity(
