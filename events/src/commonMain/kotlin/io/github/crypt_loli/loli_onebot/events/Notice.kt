@@ -4,7 +4,8 @@ import io.github.crypt_loli.loli_onebot.entity.event.OneBotEvent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-open class OneBotNoticeEvent: OneBotEvent()
+@Serializable
+abstract class OneBotNoticeEvent: OneBotEvent()
 
 /**
  * 戳一戳事件

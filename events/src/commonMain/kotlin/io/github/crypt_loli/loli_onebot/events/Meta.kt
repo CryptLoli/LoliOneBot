@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-open class OneBotMetaEvent : OneBotEvent()
+abstract class OneBotMetaEvent : OneBotEvent()
 
 /**
  * 心跳事件
