@@ -14,9 +14,9 @@ class GroupInfo(
     @SerialName("group_id")
     val id: Long,
     @SerialName("group_name")
-    val name: String,
+    var name: String,
     @SerialName("member_count")
-    val memberCount: Int,
+    var memberCount: Int,
     @SerialName("max_member_count")
-    val memberLimit: Int,
+    var memberLimit: Int,
 )
