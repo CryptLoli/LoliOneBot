@@ -8,6 +8,6 @@ data class FriendInfo(
     @SerialName("user_id")
     val userId: Long,
     @SerialName("nickname")
-    val name: String,
-    val remark: String = ""
+    var name: String,
+    var remark: String = ""
 )
