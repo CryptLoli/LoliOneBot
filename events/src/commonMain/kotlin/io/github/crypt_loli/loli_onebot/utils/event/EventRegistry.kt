@@ -22,9 +22,11 @@ class EventRegistry {
         register(OneBotRequestBeAddFriend.serializer(), "post_type" to "request", "request_type" to "friend")
         register(OneBotRequestJoinGroup.serializer(), "post_type" to "request", "sub_type" to "add")
         register(OneBotRequestBeInviteGroup.serializer(), "post_type" to "request", "sub_type" to "invite")
-        register(OneBotNoticePrivateRevokeEvent.serializer(), "post_type" to "notice", "notice_type" to "friend_recall")
-        register(OneBotNoticeGroupRevokeEvent.serializer(), "post_type" to "notice", "notice_type" to "group_recall")
         register(OneBotNoticePokeEvent.serializer(), "post_type" to "notice", "sub_type" to "poke")
+        register(OneBotNoticeRevokeEvent.Private.serializer(), "post_type" to "notice", "notice_type" to "friend_recall")
+        register(OneBotNoticeRevokeEvent.Group.serializer(), "post_type" to "notice", "notice_type" to "group_recall")
+        register(OneBotNoticeGroupMemberEvent.Join.serializer(), "post_type" to "notice", "notice_type" to "group_increase")
+        register(OneBotNoticeGroupMemberEvent.Leave.serializer(), "post_type" to "notice", "notice_type" to "group_decrease")
         register(OneBotHeartbeatEvent.serializer(), "post_type" to "meta_event", "meta_event_type" to "heartbeat")
     }
 
