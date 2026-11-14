@@ -26,7 +26,7 @@ import kotlin.time.Instant
 class GroupMemberInfo(
     @SerialName("user_id")
     val userId: Long,
-    var nickname: String,
+    var nickname: String = "",
 
     @SerialName("group_id")
     val groupId: Long,
@@ -40,7 +40,7 @@ class GroupMemberInfo(
     @Serializable(with = InstantLongSSerializer::class)
     var lastSentTime: Instant = Instant.DISTANT_PAST,
     var level: String = "",
-    var role: GroupRole,
+    var role: GroupRole = GroupRole.Member,
     var sex: UserSex = UserSex.Unknown,
     var title: String? = null
 )
