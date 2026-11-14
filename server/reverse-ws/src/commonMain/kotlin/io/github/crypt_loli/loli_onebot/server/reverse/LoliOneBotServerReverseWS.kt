@@ -37,24 +37,27 @@ class LoliOneBotServerReverseWS(
         disconnect()
 
         server.scope.launch {
-            httpClient.webSocket(
-                urlString = url,
-                request = {
-                    accessToken?.takeIf { it.isNotEmpty() }?.also {
-                        bearerAuth(it)
+            runCatching {
+                httpClient.webSocket(
+                    urlString = url,
+                    request = {
+                        accessToken?.takeIf { it.isNotEmpty() }?.also {
+                            bearerAuth(it)
+                        }
+                    }
+                ) {
+                    val connection = ReverseWSConnection(server, this)
+                    send(connection)
+                    server.onConnection(connection.api) {
+                        this@LoliOneBotServerReverseWS.connection = connection
+
+                        connection.job.join()
+
+                        server.onDisconnect(connection.api, connection.disconnectReason)
                     }
                 }
-            ) {
-                val connection = ReverseWSConnection(server, this)
-                send(connection)
-                server.onConnection(connection.api) {
-                    this@LoliOneBotServerReverseWS.connection = connection
-
-                    connection.job.join()
-
-                    server.onDisconnect(connection.api, connection.disconnectReason)
-                }
             }
+                .onFailure { e -> close(e) }
         }
     }
         .apply { if (await) job.join() }
