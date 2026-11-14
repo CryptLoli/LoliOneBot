@@ -13,8 +13,8 @@ abstract class OneBotMessageEvent: Message, OneBotEvent() {
     abstract val subType: SubType
     abstract val messageId: Long
     abstract val userId: Long
-    abstract override val message: RawOneBotMessage
-    abstract override val rawMessage: String
+    abstract override var message: RawOneBotMessage
+    abstract override var rawMessage: String
     abstract val font: Int
     abstract val sender: Sender
 
@@ -98,9 +98,9 @@ data class OneBotGroupMessageEvent(
     override val messageId: Long = 0L,
     @SerialName("user_id")
     override val userId: Long = 0L,
-    override val message: RawOneBotMessage = emptyList(),
+    override var message: RawOneBotMessage = emptyList(),
     @SerialName("raw_message")
-    override val rawMessage: String = "",
+    override var rawMessage: String = "",
     override val font: Int = 0,
     override val sender: Sender = Sender(),
     @SerialName("group_id")
@@ -115,9 +115,9 @@ data class OneBotPrivateMessageEvent(
     override val messageId: Long = 0L,
     @SerialName("user_id")
     override val userId: Long = 0L,
-    override val message: RawOneBotMessage = emptyList(),
+    override var message: RawOneBotMessage = emptyList(),
     @SerialName("raw_message")
-    override val rawMessage: String = "",
+    override var rawMessage: String = "",
     override val font: Int = 0,
     override val sender: Sender = Sender(),
     @SerialName("temp_source")
