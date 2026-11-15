@@ -14,6 +14,7 @@ base("server") {
 
 include(":events")
 include(":format-array-message")
+include(":legacy-cq-code-message")
 include(":kotlin-dsl")
 include(":base")
 
