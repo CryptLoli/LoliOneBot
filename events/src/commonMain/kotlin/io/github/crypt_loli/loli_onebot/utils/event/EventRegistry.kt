@@ -27,6 +27,7 @@ class EventRegistry {
         register(OneBotNoticeRevokeEvent.Group.serializer(), "post_type" to "notice", "notice_type" to "group_recall")
         register(OneBotNoticeGroupMemberEvent.Join.serializer(), "post_type" to "notice", "notice_type" to "group_increase")
         register(OneBotNoticeGroupMemberEvent.Leave.serializer(), "post_type" to "notice", "notice_type" to "group_decrease")
+        register(OneBotNoticeGroupAdminChangeEvent.serializer(), "post_type" to "notice", "notice_type" to "group_admin")
         register(OneBotHeartbeatEvent.serializer(), "post_type" to "meta_event", "meta_event_type" to "heartbeat")
     }
 
