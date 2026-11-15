@@ -55,7 +55,28 @@ dependencies {
 这是一个简单的示范 适用于 `kotlin/jvm`
 
 ```kotlin
-// TODO
+// reverse-ws
+suspend fun main(vararg args: String) {
+    LoliOneBotClientReverseWS(object : OneBotWSReverseListener {
+        override suspend fun onAnyEvent(event: OneBotEvent) {
+            if (event is OneBotPrivateMessageEvent && event.rawMessage == "/ping") {
+                event.reply("Pong~")
+            }
+        }
+    }).createWSServerAndStart(CIO)
+
+    awaitCancellation()
+}
+// forward-ws
+suspend fun main(vararg args: String) {
+    LoliOneBotClientForwardWS(object : OneBotWSReverseListener {
+        override suspend fun onAnyEvent(event: OneBotEvent) {
+            if (event is OneBotPrivateMessageEvent && event.rawMessage == "/ping") {
+                event.reply("Pong~")
+            }
+        }
+    }, "ws://localhost:6700/").connect(await = true)
+}
 ```
 
 ## 一些常见问题
