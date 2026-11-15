@@ -139,3 +139,24 @@ abstract class OneBotNoticeGroupMemberEvent: OneBotNoticeEvent() {
         }
     }
 }
+
+/**
+ * 群管理员变动事件
+ *
+ * @param subType 变动后身份
+ * @param groupId 群组
+ * @param userId 变动者
+ */
+@Serializable
+data class OneBotNoticeGroupAdminChangeEvent(
+    val subType: Type,
+    val groupId: Long,
+    val userId: Long
+): OneBotNoticeEvent() {
+    enum class Type {
+        @SerialName("set")
+        Set,
+        @SerialName("unset")
+        Unset
+    }
+}
