@@ -18,6 +18,6 @@ data class ImageEntity(
     override fun encode() = jsonSend.encodeToJsonElement(this)
     companion object {
         val factor = ArrayEntityFactor("image", serializer())
-        fun OneBotMessage.appendImage(file: String) = add(TextEntity(file))
+        fun OneBotMessage.appendImage(file: String) = add(ImageEntity(file))
     }
 }
