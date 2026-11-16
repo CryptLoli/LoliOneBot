@@ -149,8 +149,11 @@ abstract class OneBotNoticeGroupMemberEvent: OneBotNoticeEvent() {
  */
 @Serializable
 data class OneBotNoticeGroupAdminChangeEvent(
+    @SerialName("sub_type")
     val subType: Type,
+    @SerialName("group_id")
     val groupId: Long,
+    @SerialName("user_id")
     val userId: Long
 ): OneBotNoticeEvent() {
     enum class Type {
